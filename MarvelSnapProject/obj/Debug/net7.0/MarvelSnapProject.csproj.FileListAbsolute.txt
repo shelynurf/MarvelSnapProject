@@ -1,0 +1,15 @@
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.exe
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.deps.json
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.runtimeconfig.json
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.dll
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.pdb
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.csproj.AssemblyReference.cache
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.GeneratedMSBuildEditorConfig.editorconfig
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.AssemblyInfoInputs.cache
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.AssemblyInfo.cs
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.csproj.CoreCompileInputs.cache
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.dll
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\refint\MarvelSnapProject.dll
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.pdb
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.genruntimeconfig.cache
+D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\ref\MarvelSnapProject.dll
