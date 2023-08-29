@@ -1,7 +1,7 @@
 namespace MarvelSnapProject;
 
 public class MarvelPlayer : Iplayer{
-    private string _playerName;
+    private string? _playerName;
     private int _playerID;
     private PlayerStatus _playerStatus;
     public string GetPlayerName(){

@@ -1,7 +1,7 @@
 namespace MarvelSnapProject;
 
 public class AbilityOnGoing : CardAbstract{
-    public override void Ability()
+    public override void Ability(GameController gameController)
     {
         throw new NotImplementedException();
     }

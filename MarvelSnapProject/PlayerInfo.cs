@@ -2,7 +2,7 @@ namespace MarvelSnapProject;
 
 public class PlayerInfo
 {
-	private List<ICard> _card;
+	private List<ICard>? _card;
 	private LocPos _playerPos;
 	private PlayerStatus _playerStatus;
 	
@@ -14,14 +14,10 @@ public class PlayerInfo
 	{
 		
 	}
-	public IEnumerable<string> GetPlayerInfo()
-	{
+	// public IEnumerable<string> GetPlayerInfo()
+	// {
 		
-	}
-	
-	{
-		
-	}
+	// }
 	
 	public bool SetLocPos(LocPos locPos)
 	{

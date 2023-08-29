@@ -1,6 +1,6 @@
 namespace MarvelSnapProject;
 
-public abstract class CardAbstract
+public abstract class CardAbstract : ICard
 {
     private string? _cardName;
     private int _cardEnergy;
@@ -34,5 +34,5 @@ public abstract class CardAbstract
         return _cardPower;
     }
 
-    public abstract void Ability();
+    public abstract void Ability(GameController gameController);
 }

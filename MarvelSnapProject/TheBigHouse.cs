@@ -1,5 +1,9 @@
 namespace MarvelSnapProject;
 
-public class TheBigHouse
+public class TheBigHouse : MarvelLocation
 {
+    public override void LocationEffect(GameController gameController)
+    {
+        throw new NotImplementedException();
+    }
 }
