@@ -1,5 +1,8 @@
 namespace MarvelSnapProject;
 
-public class AbilityOnReveal
-{
+public class AbilityOnReveal : CardAbstract{
+    public override void Ability()
+    {
+        throw new NotImplementedException();
+    }
 }
