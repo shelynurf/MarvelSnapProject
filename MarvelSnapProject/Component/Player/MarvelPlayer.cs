@@ -4,6 +4,11 @@ public class MarvelPlayer : Iplayer{
     private string? _playerName;
     private int _playerID;
     private PlayerStatus _playerStatus;
+
+    public MarvelPlayer(string playerName, int playerID){
+        _playerName = playerName;
+        _playerID = playerID;
+    }
     public string GetPlayerName(){
         return _playerName;
     }

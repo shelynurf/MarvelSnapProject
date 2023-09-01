@@ -7,13 +7,14 @@ public class GameController
     private List<Ilocation> _cards;
     private Iplayer _turn;
 
-    public bool AddNewPlayer(Iplayer player){
+    public static bool AddNewPlayer(Iplayer player){
+
         return true;
     }
     // public IEnumerable<Iplayer> ListAllPlayer(){
         
     // }
-    public bool RemovePlayer(Iplayer player){
+    public static bool RemovePlayer(Iplayer player){
         return true;
     }
     public bool SetPlayerStatus(Iplayer player, PlayerStatus status){
