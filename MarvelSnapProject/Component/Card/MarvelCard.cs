@@ -1,10 +1,23 @@
-namespace MarvelSnapProject;
+using MarvelSnapProject.Enum;
 
-public abstract class CardAbstract : ICard
+namespace MarvelSnapProject.Component.Card;
+
+public class MarvelCard : ICard
 {
     private string? _cardName;
     private int _cardCost;
     private int _cardPower;
+    private CardType _cardType;
+    private CardSkill _cardSkill;
+
+
+    public MarvelCard(string name, int cost, int power, CardType type, CardSkill skill){
+        _cardName = name;
+        _cardCost = cost;
+        _cardPower = power;
+        _cardType = type;
+        _cardSkill = skill;
+    }
 
     public bool SetCardName(string name)
     {
@@ -33,6 +46,4 @@ public abstract class CardAbstract : ICard
     public int GetCardPower(){
         return _cardPower;
     }
-
-    public abstract void Ability(GameController gameController);
 }

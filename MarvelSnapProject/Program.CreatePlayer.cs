@@ -1,7 +1,7 @@
 ﻿using System;
 using MarvelSnapProject;
 
-class Program{
+public partial class Program{
     public static void Main(){
         GameController game = new();
         
@@ -36,7 +36,29 @@ class Program{
         Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
         }
 
-        Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
+        // Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
+
+
+        //remove player
+        // game.RemovePlayer(player1);
+        players = game.ListAllPlayer();
+        foreach (var player in players){
+        Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
+        }
+
+        do {
+            Console.WriteLine("\nPress (y) to start the Game");
+        }
+        while(Console.ReadKey().Key != ConsoleKey.Y);
+
+        Console.Clear();
+
+        var allCards = game.GetAllCards();
+        foreach (var card in allCards){
+            Console.WriteLine(card.GetCardName());
+        }
+
+
 
 
         
