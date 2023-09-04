@@ -6,6 +6,7 @@ public class PlayerInfo
 	private LocPos _playerPos;
 	private PlayerStatus _playerStatus;
 	
+	
 	public void AddCardToDect(ICard card)
 	{
 		
