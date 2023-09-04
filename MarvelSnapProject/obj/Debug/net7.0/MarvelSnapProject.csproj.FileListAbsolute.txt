@@ -13,3 +13,18 @@ D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\refint\MarvelSnap
 D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.pdb
 D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.genruntimeconfig.cache
 D:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\obj\Debug\net7.0\ref\MarvelSnapProject.dll
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.exe
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.deps.json
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.runtimeconfig.json
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.dll
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\bin\Debug\net7.0\MarvelSnapProject.pdb
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.csproj.AssemblyReference.cache
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.AssemblyInfoInputs.cache
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.AssemblyInfo.cs
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.csproj.CoreCompileInputs.cache
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.dll
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\refint\MarvelSnapProject.dll
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.pdb
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.genruntimeconfig.cache
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\ref\MarvelSnapProject.dll

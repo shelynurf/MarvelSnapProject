@@ -38,6 +38,17 @@ class Program{
 
         Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
 
+        game.RemovePlayer(player2);
+
+         // List All Players
+       
+        Console.WriteLine("\nPlayer's ID \t Player's Name");
+        foreach (var player in players){
+        Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
+        }
+
+        Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
+
 
         
 

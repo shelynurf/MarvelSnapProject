@@ -39,9 +39,13 @@ public class GameController
         }
         return players;
     }
-    public static bool RemovePlayer(Iplayer player)
+    public bool RemovePlayer(Iplayer player)
     {
-        return true;
+        if (_playersInfo.ContainsKey(player)){
+            _playersInfo.Remove(player);
+            return true;
+        }
+        return false;
     }
     public bool SetPlayerStatus(Iplayer player, PlayerStatus status)
     {
