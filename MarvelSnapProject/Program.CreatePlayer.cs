@@ -14,11 +14,15 @@ public partial class Program
         Console.WriteLine("==== Welcome To Marvel Snap ==== \n");
 
         // Add Player
-        Iplayer player1, player2;
-        Console.Write("Input First Player's Name : ");
-        string? name1 = Console.ReadLine();
-        name1 = char.ToUpper(name1[0]) + name1.Substring(1);
-        player1 = new MarvelPlayer(name1, 111);
+        string? name1, name2;
+        IPlayer player1, player2;
+        do
+        {
+            Console.Write("Input First Player's Name : ");
+            name1 = Console.ReadLine();
+            name1 = char.ToUpper(name1[0]) + name1.Substring(1);
+            player1 = new MarvelPlayer(name1, 111);
+        } while (name1 == "" || !game.AddNewPlayer(player1));
         game.AddNewPlayer(player1);
 
 
@@ -26,10 +30,11 @@ public partial class Program
         {
 
             Console.Write("Input Second Player's Name : ");
-            string? name2 = Console.ReadLine();
+            name2 = Console.ReadLine();
             name2 = char.ToUpper(name2[0]) + name2.Substring(1);
             player2 = new MarvelPlayer(name2, 112);
-        } while (player1.GetPlayerName() == player2.GetPlayerName());
+        }
+        while (name2 == "" || !game.AddNewPlayer(player2));
         game.AddNewPlayer(player2);
 
 
@@ -43,13 +48,19 @@ public partial class Program
 
         // Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
 
-
-        //remove player
+        Console.WriteLine("round: " + game.CheckRound());
+        Console.WriteLine("game status : " + game.GetGameStatus());
+        // remove player
         // game.RemovePlayer(player1);
         // players = game.ListAllPlayer();
         // foreach (var player in players){
         // Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
         // }
+        game.NextRound();
+        Console.WriteLine("round: " + game.CheckRound());
+        Console.WriteLine("game status : " + game.GetGameStatus());
+
+
 
         do
         {
@@ -59,86 +70,80 @@ public partial class Program
 
         Console.Clear();
 
-        // var allCards = game.GetAllCards();
+        var allCards = game.GetAllCards();
         // foreach (var card in allCards){
-        //     Console.WriteLine(card.GetCardName());
+        //     Console.WriteLine(allCards.IndexOf(card) + " : " + card.GetCardName());
         // }
 
-        // Serialization
-        List<MarvelCard> cards = new List<MarvelCard>();
-        cards.Add(new("Hawkeye", 1, 1, CardType.OnReveal, CardSkill.Hawkeye));
-        cards.Add(new("Misty Knight", 1, 2, CardType.Normal, CardSkill.MistyKnight));
-        cards.Add(new("Abomination", 5, 9, CardType.Normal, CardSkill.Abomination));
-        cards.Add(new("Cyclops", 3, 4, CardType.Normal, CardSkill.Cyclops));
-        cards.Add(new("Hulk", 6, 12, CardType.Normal, CardSkill.Hulk));
-        cards.Add(new("Iron Man", 5, 0, CardType.OnGoing, CardSkill.IronMan));
-        cards.Add(new("Medusa", 2, 2, CardType.OnReveal, CardSkill.Medusa));
-        cards.Add(new("Punisher", 3, 2, CardType.OnGoing, CardSkill.Punisher));
-        cards.Add(new("Quicksilver", 1, 2, CardType.Normal, CardSkill.Quicksilver));
-        cards.Add(new("Sentinel", 2, 3, CardType.OnReveal, CardSkill.Sentinel));
-        cards.Add(new("Shocker", 2, 3, CardType.Normal, CardSkill.Shocker));
-        cards.Add(new("Star-Lord", 2, 2, CardType.OnReveal, CardSkill.StarLord));
-        cards.Add(new("The Thing", 4, 6, CardType.Normal, CardSkill.TheThing));
-        cards.Add(new("Jessica Jones", 4, 4, CardType.OnReveal, CardSkill.JessicaJones));
-        cards.Add(new("Ant Man", 1, 1, CardType.OnGoing, CardSkill.AntMan));
-        cards.Add(new("Squirrel", 1, 1, CardType.Normal, CardSkill.Squirrel));
 
-        List<MarvelLocation> locations = new List<MarvelLocation>{
-            new("Necrosha", LocationSkill.Necrosha),
-            new("Central Park", LocationSkill.CentralPark),
-            new("Negative Zone", LocationSkill.NegativeZone),
-            new("The Superflow", LocationSkill.TheSuperflow),
-            new("Asgard", LocationSkill.Asgard),
-            new("Lemuria", LocationSkill.Lemuria),
-            new("The Big House", LocationSkill.TheBigHouse),
-            new("Subterranea", LocationSkill.Subterranea)
-        };
 
-        
+        // Declare Player Deck
+        List<int> deck1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+        List<int> deck2 = new List<int>() { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+        game.SetPlayerDeck(player1, deck1);
+        game.SetPlayerDeck(player2, deck2);
 
-        DataContractJsonSerializer serCard = new DataContractJsonSerializer(typeof(List<MarvelCard>));
-
-        FileStream streamCard = new FileStream(@".\Component\Database\cards.json", FileMode.Create);
-        using (var writerCard = JsonReaderWriterFactory.CreateJsonWriter(streamCard, Encoding.UTF8, true, true, "   "))
+        var listCard1 = game.GetPlayerDeck(player1);
+        Console.Write($"{player1.GetPlayerName()}'s Deck : ");
+        foreach (var card in listCard1)
         {
-            serCard.WriteObject(writerCard, cards);
-
+            Console.Write(card.GetCardName() + ", ");
         }
 
-        // List<MarvelLocation> locations = new List<MarvelLocation>();
-        // locations.Add(new("Necrosha", LocationSkill.Necrosha));
-
-        DataContractJsonSerializer serLoc = new DataContractJsonSerializer(typeof(List<MarvelLocation>));
-
-        FileStream streamLoc = new FileStream(@".\Component\Database\locations.json", FileMode.Create);
-        using (var writerLoc = JsonReaderWriterFactory.CreateJsonWriter(streamLoc, Encoding.UTF8, true, true, "   "))
+        var listCard2 = game.GetPlayerDeck(player2);
+        Console.Write($"\n{player2.GetPlayerName()}'s Deck : ");
+        foreach (var card in listCard2)
         {
-            serLoc.WriteObject(writerLoc, locations);
-
+            Console.Write(card.GetCardName() + ", ");
         }
 
-        // Deserialized
-        List<MarvelCard> importCards;
-        using (FileStream streamCard2 = new FileStream(@".\Component\Database\cards.json", FileMode.OpenOrCreate))
+        // Generate Card
+        Console.WriteLine("\n");
+        Console.WriteLine("Round : " + game.CheckRound());
+        Console.WriteLine("\n");
+        foreach (IPlayer player in game.ListAllPlayer())
         {
-            importCards = (List<MarvelCard>)serCard.ReadObject(streamCard2);
+            game.GenerateCard(player);
+            List<ICard> cardPlayer = game.GetPlayerCards(player);
+            Console.Write($"{player.GetPlayerName()}'s card : ");
+            foreach (MarvelCard card in cardPlayer)
+            {
+                Console.Write(card.GetCardName() + ", ");
+            }
+            Console.WriteLine("\n");
         }
 
-        List<MarvelLocation> importLocations;
-        using (FileStream streamLoc2 = new FileStream(@".\Component\Database\locations.json", FileMode.OpenOrCreate))
-        {
-            importLocations = (List<MarvelLocation>)serLoc.ReadObject(streamLoc2);
-        }
+        // game.GenerateCard(player1);
+        // List<ICard> cardPlayer1 = game.GetPlayerCards(player1);
+        // Console.Write($"{player1.GetPlayerName()}'s card : ");
+        // foreach (MarvelCard card in cardPlayer1){
+        //     Console.Write(card.GetCardName() + ", ");
+        // }
 
-        // Start the game
-        
+        // game.GenerateCard(player2);
+        // List<ICard> cardPlayer2 = game.GetPlayerCards(player2);
+        // Console.Write($"\n{player2.GetPlayerName()}'s card : ");
+        // foreach (MarvelCard card in cardPlayer2){
+        //     Console.Write(card.GetCardName() + ", ");
+        // }
 
-        Console.WriteLine("round " + game.CheckRound());
         game.NextRound();
-        Console.WriteLine(game.CheckRound());
+        Console.WriteLine("\n");
+        Console.WriteLine("Round : " + game.CheckRound());
+        Console.WriteLine("\n");
+        foreach (IPlayer player in game.ListAllPlayer())
+        {
+            game.GenerateCard(player);
+            List<ICard> cardPlayer = game.GetPlayerCards(player);
+            Console.Write($"{player.GetPlayerName()}'s card : ");
+            foreach (MarvelCard card in cardPlayer)
+            {
+                Console.Write(card.GetCardName() + ", ");
+            }
+            Console.WriteLine("\n");
+        }
 
-        Random random = new Random();
-        
+
 
 
 

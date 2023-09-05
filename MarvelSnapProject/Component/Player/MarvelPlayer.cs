@@ -1,6 +1,6 @@
 namespace MarvelSnapProject;
 
-public class MarvelPlayer : Iplayer{
+public class MarvelPlayer : IPlayer{
     private string? _playerName;
     private int _playerID;
     private PlayerStatus _playerStatus;

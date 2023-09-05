@@ -6,8 +6,11 @@ public class GameController
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
     private List<Ilocation> _locations = new();
     private List<Ilocation> _cards = new();
+    private GameStatus _gameStatus = GameStatus.NotStarted;
+    private MarvelSerialized _marvelSer = new MarvelSerialized();
+    private List<MarvelCard> _allCards = new();
+    private List<MarvelLocation> _allLocations = new();
 
-    
     // private IPlayer _turn = new();
 
     /// <summary>
@@ -15,33 +18,33 @@ public class GameController
     /// </summary>
     /// <param name="player">player's instance</param>
     /// <returns>True if success</returns>
-    // public bool AddNewPlayer(IPlayer player)
-    // {
-    //     if (_playersInfo.Count < 2)
-    //     {
-    //         if (!_playersInfo.ContainsKey(player))
-    //         {
-    //             foreach (IPlayer regPlayer in _playersInfo.Keys)
-    //             {
-
-    //                 if (regPlayer.GetPlayerName() == player.GetPlayerName() || regPlayer.GetPlayerID() == player.GetPlayerID())
-    //                 {
-    //                     return false;
-    //                 }
-    //             }
-    //             PlayerInfo playerInfo = new();
-    //             _playersInfo.Add(player, playerInfo);
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
     public bool AddNewPlayer(IPlayer player)
     {
-        PlayerInfo playerInfo = new();
-        _playersInfo.Add(player, playerInfo);
-        return true;
+        if (_playersInfo.Count < 2)
+        {
+            if (!_playersInfo.ContainsKey(player))
+            {
+                foreach (IPlayer regPlayer in _playersInfo.Keys)
+                {
+
+                    if (regPlayer.GetPlayerName() == player.GetPlayerName() || regPlayer.GetPlayerID() == player.GetPlayerID())
+                    {
+                        return false;
+                    }
+                }
+                PlayerInfo playerInfo = new();
+                _playersInfo.Add(player, playerInfo);
+                return true;
+            }
+        }
+        return false;
     }
+    // public bool AddNewPlayer(IPlayer player)
+    // {
+    //     PlayerInfo playerInfo = new();
+    //     _playersInfo.Add(player, playerInfo);
+    //     return true;
+    // }
 
     
 
@@ -55,6 +58,7 @@ public class GameController
         _playersInfo.Remove(player);
         return true;
     }
+
 
     /// <summary>
     /// Get list of player's name and ID
@@ -71,19 +75,125 @@ public class GameController
         return players;
     }
 
+    /// <summary>
+    /// Checking current round of game
+    /// </summary>
+    /// <returns>current round</returns>
     public int CheckRound(){
         return _round;
     }
 
+    public GameStatus GetGameStatus(){
+        return _gameStatus;
+    }
+
+    /// <summary>
+    /// Continue the game to the next round
+    /// </summary>
+    /// <returns></returns>
     public bool NextRound(){
-        _round += 1;
+        if (_gameStatus == GameStatus.NotStarted && _playersInfo.Count == 2){
+            _gameStatus = GameStatus.Running;
+            _round += 1;
+        }
+        else if (_gameStatus == GameStatus.Running){
+            if (_round == 6){
+                _gameStatus = GameStatus.Finished;
+            }
+            else {
+                _round += 1;
+            }
+        }
+        
+        foreach (PlayerInfo info in _playersInfo.Values){
+            info.SetEnergy(_round);
+        }
         return true;
     }
 
-    public void AddlayerDeck(IPlayer player, ICard cards){
+    public List<MarvelCard> GetAllCards(){
+        _allCards = _marvelSer.ImportCards();
+        return _allCards;
+    }
+
+    public List<MarvelLocation> GetAllLocations(){
+        _allLocations = _marvelSer.ImportLocations();
+        return _allLocations;
+    }
+
+    public bool SetPlayerDeck(IPlayer player, List<int> listCardIndex){
+        // PlayerInfo info = _playersInfo[player];
+        // Random random = new Random();
+        // List<int> randomList = new List<int>();
+
+        // while (randomList.Count < 12)
+        // {
+        //     int indexCard = random.Next(0, _allCards.Count);
+        //     if (!randomList.Contains(indexCard)){
+        //         randomList.Add(indexCard);
+        //     }
+        // }
+        // foreach(int index in randomList){
+        //     ICard card = _allCards[index].Copy();
+        //     info.AddCardToDeck(card);
+        // }
+        // return true;
+        PlayerInfo info = _playersInfo[player];
+        // Random random = new Random();
+        // int[] indexCard = new int[12] ;
+        List<int> indexCard = listCardIndex;
+        // List<int> indexList = listCard;
+        // while (randomList.Count < 12){
+        //     int indexCard = random.Next(_allCards.Count);
+        //     if (!randomList.Contains(indexCard)){
+        //         randomList.Add(indexCard);
+        //     }
+        // }
+        foreach(int index in indexCard){
+            MarvelCard card = _allCards[index].Copy();
+            info.AddCardToDeck(card);
+        }
+        return true;
+    }
+
+    public List<MarvelCard> GetPlayerDeck(IPlayer player){
+        return _playersInfo[player].GetDeck();
+    }
+
+    public bool GenerateCard(IPlayer player){
         PlayerInfo info = _playersInfo[player];
         Random random = new Random();
-        info.AddCardToDeck(cards);
+        List<MarvelCard> deck = info.GetDeck();
+        List<int> listIndex = new List<int>();
+        if (_round == 1 ){
+            while (listIndex.Count < 4){
+                int ind = random.Next(0, deck.Count);
+                if (!listIndex.Contains(ind)){
+                    listIndex.Add(ind);
+                }
+            }
+        }
+        else {
+            int ind = random.Next(0, deck.Count);
+            if (!listIndex.Contains(ind)){
+                    listIndex.Add(ind);
+                }
+        }
+
+        foreach (int ind in listIndex){
+            MarvelCard card = deck[ind].Copy();
+            info.AddCard(card);
+        }
+        return true;
+
+
+        // int randomIndex = random.Next(0, deck.Count);
+        // MarvelCard card = deck[randomIndex].Copy();
+        // return true;
+    }
+
+    public List<ICard> GetPlayerCards(IPlayer player){
+        return _playersInfo[player].GetCards();
     }
 
     public bool SetPlayerStatus(IPlayer player, PlayerStatus status)
@@ -218,48 +328,5 @@ public class GameController
 // {
 //     return true;
 // }
-
-
-
-	// // ENTER PLAYER'S IDENTITY
-	// 	string? name;
-	// 	IPlayer player1, player2;
-	// 	do 
-	// 	{
-	// 		Console.Write("Input first player's name : ");	
-	// 		name = Console.ReadLine();
-	// 		player1 = new HumanPlayer(name);
-	// 	} while (name == "" || player1.GetName() == "");
-	// 	// IPlayer player1 = new HumanPlayer(name);
-	// 	gameRunner.AddPlayer(player1);
-		
-	// 	do
-	// 	{
-	// 		Console.Write("Input second player's name : ");
-	// 		name= Console.ReadLine();
-	// 		player2 = new HumanPlayer(name);
-	// 	} while (name == "" || !gameRunner.AddPlayer(player2));
-	// 	// IPlayer player2 = new HumanPlayer(name);
-
-    //     public bool AddPlayer(IPlayer player)
-	// {
-	// 	if (_playerInfo.Count < 2)
-	// 	{
-	// 		if (!_playerInfo.ContainsKey(player))
-	// 		{
-	// 			foreach (IPlayer assigned in _playerInfo.Keys)
-	// 			{
-	// 				if (assigned.GetId() == player.GetId() || assigned.GetName() == player.GetName()) // checking if id or name has already assigned
-	// 				{
-	// 					return false;			
-	// 				}
-	// 			}
-	// 			PlayerConfig config = new();
-	// 			_playerInfo.Add(player, config);
-	// 			return true;
-	// 		}
-	// 	}
-	// 	return false;
-	// }
 
 

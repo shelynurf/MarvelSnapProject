@@ -47,4 +47,10 @@ public class MarvelCard : ICard
     public int GetCardPower(){
         return _cardPower;
     }
+
+    public MarvelCard Copy(){
+        MarvelCard copy = (MarvelCard)this.MemberwiseClone();
+        copy._cardName = _cardName;
+        return copy;
+    }
 }
