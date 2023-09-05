@@ -1,6 +1,6 @@
 namespace MarvelSnapProject;
 
-public interface Iplayer{
+public interface IPlayer{
 
     /// <summary>
     /// Get player's name and return to string.

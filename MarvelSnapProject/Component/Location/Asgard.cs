@@ -1,6 +1,6 @@
 namespace MarvelSnapProject;
 
-public class Asgard : MarvelLocation
+public class Asgard : LocationAbstract
 {
     public override void LocationEffect(GameController gameController)
     {

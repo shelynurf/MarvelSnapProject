@@ -1,14 +1,15 @@
-using MarvelSnapProject.Enum;
+using System.Runtime.Serialization;
 
-namespace MarvelSnapProject.Component.Location;
+namespace MarvelSnapProject;
 
+[DataContract]
 public class MarvelLocation : Ilocation
 {
-    private string? _locationName;
+    [DataMember] private string? _locationName;
     private Dictionary<LocPos, List<CardAbstract>> _posCard;
     private Dictionary<LocPos, int> _locEnergy;
     private bool _isFull;
-    private LocationSkill _locSkill;
+    [DataMember] private LocationSkill _locSkill;
 
     public MarvelLocation(string name, LocationSkill skill){
         _locationName = name;

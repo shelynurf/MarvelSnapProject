@@ -1,14 +1,15 @@
-using MarvelSnapProject.Enum;
+using System.Runtime.Serialization;
 
-namespace MarvelSnapProject.Component.Card;
+namespace MarvelSnapProject;
 
+[DataContract]
 public class MarvelCard : ICard
 {
-    private string? _cardName;
-    private int _cardCost;
-    private int _cardPower;
-    private CardType _cardType;
-    private CardSkill _cardSkill;
+    [DataMember] private string? _cardName;
+    [DataMember] private int _cardCost;
+    [DataMember] private int _cardPower;
+    [DataMember] private CardType _cardType;
+    [DataMember] private CardSkill _cardSkill;
 
 
     public MarvelCard(string name, int cost, int power, CardType type, CardSkill skill){

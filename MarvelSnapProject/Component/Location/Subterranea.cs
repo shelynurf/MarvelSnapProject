@@ -1,6 +1,6 @@
 namespace MarvelSnapProject;
 
-public class Subterranea : MarvelLocation
+public class Subterranea : LocationAbstract
 {
     public override void LocationEffect(GameController gameController)
     {

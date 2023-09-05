@@ -1,5 +1,3 @@
-using MarvelSnapProject.Enum;
-
 namespace MarvelSnapProject;
 
 public abstract class LocationAbstract : Ilocation
