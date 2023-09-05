@@ -1,4 +1,5 @@
 using MarvelSnapProject.Component.Card;
+using MarvelSnapProject.Component.Location;
 
 namespace MarvelSnapProject;
 
@@ -136,40 +137,54 @@ public class GameController
         //     new("Ant Man", 1, 1, Enum.CardType.OnGoing, Enum.CardSkill.AntMan),
         //     new("Squirrel", 1, 1, Enum.CardType.Normal, Enum.CardSkill.Squirrel)};
 
-            List<MarvelCard> cards = new List<MarvelCard>();
-            cards.Add(new("Hawkeye", 1, 1, Enum.CardType.OnReveal, Enum.CardSkill.Hawkeye));
-            cards.Add(new("Misty Knight", 1, 2, Enum.CardType.Normal, Enum.CardSkill.MistyKnight));
-            cards.Add(new("Abomination", 5, 9, Enum.CardType.Normal, Enum.CardSkill.Abomination));
-            cards.Add(new("Cyclops", 3, 4, Enum.CardType.Normal, Enum.CardSkill.Cyclops));
-            cards.Add(new("Hulk", 6, 12, Enum.CardType.Normal, Enum.CardSkill.Hulk));
-            cards.Add(new("Iron Man", 5, 0, Enum.CardType.OnGoing, Enum.CardSkill.IronMan));
-            cards.Add(new("Medusa", 2, 2, Enum.CardType.OnReveal, Enum.CardSkill.Medusa));
-            cards.Add(new("Punisher", 3, 2, Enum.CardType.OnGoing, Enum.CardSkill.Punisher));
-            cards.Add(new("Quicksilver", 1, 2, Enum.CardType.Normal, Enum.CardSkill.Quicksilver));
-            cards.Add(new("Sentinel", 2, 3, Enum.CardType.OnReveal, Enum.CardSkill.Sentinel));
-            cards.Add(new("Shocker", 2, 3, Enum.CardType.Normal, Enum.CardSkill.Shocker));
-            cards.Add(new("Star-Lord", 2, 2, Enum.CardType.OnReveal, Enum.CardSkill.StarLord));
-            cards.Add(new("The Thing", 4, 6, Enum.CardType.Normal, Enum.CardSkill.TheThing));
-            cards.Add(new("Jessica Jones", 4, 4, Enum.CardType.OnReveal, Enum.CardSkill.JessicaJones));
-            cards.Add(new("Ant Man", 1, 1, Enum.CardType.OnGoing, Enum.CardSkill.AntMan));
-            cards.Add(new("Squirrel", 1, 1, Enum.CardType.Normal, Enum.CardSkill.Squirrel));
-            
-
-           
+        List<MarvelCard> cards = new List<MarvelCard>();
+        cards.Add(new("Hawkeye", 1, 1, Enum.CardType.OnReveal, Enum.CardSkill.Hawkeye));
+        cards.Add(new("Misty Knight", 1, 2, Enum.CardType.Normal, Enum.CardSkill.MistyKnight));
+        cards.Add(new("Abomination", 5, 9, Enum.CardType.Normal, Enum.CardSkill.Abomination));
+        cards.Add(new("Cyclops", 3, 4, Enum.CardType.Normal, Enum.CardSkill.Cyclops));
+        cards.Add(new("Hulk", 6, 12, Enum.CardType.Normal, Enum.CardSkill.Hulk));
+        cards.Add(new("Iron Man", 5, 0, Enum.CardType.OnGoing, Enum.CardSkill.IronMan));
+        cards.Add(new("Medusa", 2, 2, Enum.CardType.OnReveal, Enum.CardSkill.Medusa));
+        cards.Add(new("Punisher", 3, 2, Enum.CardType.OnGoing, Enum.CardSkill.Punisher));
+        cards.Add(new("Quicksilver", 1, 2, Enum.CardType.Normal, Enum.CardSkill.Quicksilver));
+        cards.Add(new("Sentinel", 2, 3, Enum.CardType.OnReveal, Enum.CardSkill.Sentinel));
+        cards.Add(new("Shocker", 2, 3, Enum.CardType.Normal, Enum.CardSkill.Shocker));
+        cards.Add(new("Star-Lord", 2, 2, Enum.CardType.OnReveal, Enum.CardSkill.StarLord));
+        cards.Add(new("The Thing", 4, 6, Enum.CardType.Normal, Enum.CardSkill.TheThing));
+        cards.Add(new("Jessica Jones", 4, 4, Enum.CardType.OnReveal, Enum.CardSkill.JessicaJones));
+        cards.Add(new("Ant Man", 1, 1, Enum.CardType.OnGoing, Enum.CardSkill.AntMan));
+        cards.Add(new("Squirrel", 1, 1, Enum.CardType.Normal, Enum.CardSkill.Squirrel));
 
         List<ICard> allCards = new();
         foreach (MarvelCard card in cards)
         {
             // List<string> cardsName = new();
             allCards.Add(card);
-            
+
         }
         return allCards;
 
-    
+
 
     }
 };
+
+// public IEnumerable<Ilocation> GetAllLocations()
+// {
+//     List<MarvelLocation> allLocation = new List<MarvelLocation>();
+//     {
+//             new("Necrosha", Enum.LocationSkill.Necrosha),
+//             new("Central Park", Enum.LocationSkill.CentralPark),
+//             new("Negative Zone", Enum.LocationSkill.NegativeZone),
+//             new("The Superflow", Enum.LocationSkill.TheSuperflow),
+//             new("Asgard", Enum.LocationSkill.Asgard),
+//             new("Lemuria", Enum.LocationSkill.Lemuria),
+//             new("The Big House", Enum.LocationSkill.TheBigHouse),
+//             new("Subterranea", Enum.LocationSkill.Subterranea),
+
+//         };
+//     return allLocation;
+// }
 
 
 // public bool AddNewCardToLocation(Ilocation location, Iplayer player, ICard card)

@@ -41,10 +41,10 @@ public partial class Program{
 
         //remove player
         // game.RemovePlayer(player1);
-        players = game.ListAllPlayer();
-        foreach (var player in players){
-        Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
-        }
+        // players = game.ListAllPlayer();
+        // foreach (var player in players){
+        // Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
+        // }
 
         do {
             Console.WriteLine("\nPress (y) to start the Game");
@@ -57,21 +57,6 @@ public partial class Program{
         foreach (var card in allCards){
             Console.WriteLine(card.GetCardName());
         }
-
-
-
-        game.RemovePlayer(player2);
-
-         // List All Players
-       
-        Console.WriteLine("\nPlayer's ID \t Player's Name");
-        foreach (var player in players){
-        Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
-        }
-
-        Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
-
-
         
 
         

@@ -1,8 +1,8 @@
 using MarvelSnapProject.Enum;
 
-namespace MarvelSnapProject.Component.Location;
+namespace MarvelSnapProject;
 
-public class MarvelLocation : Ilocation
+public abstract class LocationAbstract : Ilocation
 {
     private string? _locationName;
     private Dictionary<LocPos, List<CardAbstract>> _posCard;
@@ -10,10 +10,10 @@ public class MarvelLocation : Ilocation
     private bool _isFull;
     private LocationSkill _locSkill;
 
-    public MarvelLocation(string name, LocationSkill skill){
-        _locationName = name;
-        _locSkill = skill;
-    }
+    // public MarvelLocation(string name, LocationSkill skill){
+    //     _locationName = name;
+    //     _locSkill = skill;
+    // }
 
     public string GetLocationName(){
         return _locationName;
@@ -34,5 +34,8 @@ public class MarvelLocation : Ilocation
     public bool IsEnergyEligible(ICard card){
         return true;
     }
+
+    public abstract void LocationEffect(GameController gameController);
+
 
 }
