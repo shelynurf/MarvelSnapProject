@@ -10,6 +10,8 @@ public class PlayerInfo
 	private int _locScore;
 	private PlayerStatus _playerStatus;
 
+	private int _maxDeck = 12;
+
 
 	public PlayerInfo(){
 		_deck = new List<MarvelCard>();
@@ -26,6 +28,7 @@ public class PlayerInfo
 	{
 		_deck?.Add(card);
 		return true;
+		// if !_deck.contain(card)
 		
 	}
 
@@ -37,6 +40,7 @@ public class PlayerInfo
 	{
 		_deck?.Remove(card);
 		return true;
+		// check card is exist or not
 		
 	}
 
@@ -58,7 +62,7 @@ public class PlayerInfo
 
 	public bool IsCardFullInDecK()
 	{
-		if (_deck.Count >= 12 )
+		if (_deck.Count >= _maxDeck)
 		{
 			return true;
 		}

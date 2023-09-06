@@ -10,7 +10,9 @@ public class GameController
     private MarvelSerialized _marvelSer = new MarvelSerialized();
     private List<MarvelCard> _allCards = new();
     private List<MarvelLocation> _allLocations = new();
-
+    private Random _random = new Random();
+    private List<Ilocation> _randomLoc = new();
+    
     // private IPlayer _turn = new();
 
     /// <summary>
@@ -162,19 +164,19 @@ public class GameController
 
     public bool GenerateCard(IPlayer player){
         PlayerInfo info = _playersInfo[player];
-        Random random = new Random();
+        // Random random = new Random();
         List<MarvelCard> deck = info.GetDeck();
         List<int> listIndex = new List<int>();
         if (_round == 1 ){
             while (listIndex.Count < 4){
-                int ind = random.Next(0, deck.Count);
+                int ind = _random.Next(0, deck.Count);
                 if (!listIndex.Contains(ind)){
                     listIndex.Add(ind);
                 }
             }
         }
         else {
-            int ind = random.Next(0, deck.Count);
+            int ind = _random.Next(0, deck.Count);
             if (!listIndex.Contains(ind)){
                     listIndex.Add(ind);
                 }
@@ -194,6 +196,26 @@ public class GameController
 
     public List<ICard> GetPlayerCards(IPlayer player){
         return _playersInfo[player].GetCards();
+    }
+
+    public bool GenerateLocation(){
+        // List<MarvelLocation> locations = new List<MarvelLocation>();
+        List<int> listIndex = new List<int>();
+        while (listIndex.Count < 0){
+            int index = _random.Next(0, _allLocations.Count);
+            if (!listIndex.Contains(index)){
+                listIndex.Add(index);
+            }
+        }
+        foreach (int index in listIndex){
+            _randomLoc.Add(_allLocations[index]);
+        }
+
+        return true;
+    }
+
+    public List<Ilocation> GetLocations(){
+        return _randomLoc;
     }
 
     public bool SetPlayerStatus(IPlayer player, PlayerStatus status)
