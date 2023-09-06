@@ -2,7 +2,7 @@ namespace MarvelSnapProject;
 
 public interface ICard
 {
-    public string GetCardName();
+    public string? GetCardName();
     public int GetCardCost();
     public int GetCardPower();
     public bool SetCardName(string name);

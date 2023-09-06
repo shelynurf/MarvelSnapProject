@@ -7,9 +7,9 @@ namespace MarvelSnapProject;
 //     public bool MethodHawkeye(GameController);
 //     public bool MethodHawkeye(GameController);
 // }
-public class AbilityOnGoing : CardAbstract{
-    public override void Ability(GameController gameController)
-    {
-        throw new NotImplementedException();
-    }
-}
+// public class AbilityOnGoing {
+//     public override void Ability(GameController gameController)
+//     {
+//         throw new NotImplementedException();
+//     }
+// }

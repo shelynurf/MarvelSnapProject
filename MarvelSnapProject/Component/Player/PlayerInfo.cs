@@ -2,7 +2,7 @@ namespace MarvelSnapProject;
 
 public class PlayerInfo
 {
-	private List<MarvelCard>? _deck;
+	private List<MarvelCard> _deck;
 	private List<ICard> _cards;
 	// private LocPos _playerPos;
 

@@ -5,9 +5,9 @@ namespace MarvelSnapProject;
 [DataContract]
 public class MarvelLocation : Ilocation
 {
-    [DataMember] private string? _locationName;
-    private Dictionary<LocPos, List<CardAbstract>> _posCard;
-    private Dictionary<LocPos, int> _locEnergy;
+    [DataMember] private string _locationName;
+    // private Dictionary<LocPos, List<CardAbstract>> _posCard = new();
+    private Dictionary<LocPos, int> _locEnergy = new();
     private bool _isFull;
     [DataMember] private LocationSkill _locSkill;
 
@@ -19,7 +19,7 @@ public class MarvelLocation : Ilocation
     public string GetLocationName(){
         return _locationName;
     }
-    public bool SetLocationName(string? locationName){
+    public bool SetLocationName(string locationName){
         _locationName = locationName;
         return true;
     }

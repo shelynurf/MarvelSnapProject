@@ -4,6 +4,7 @@ public class GameController
 {
     private int _round = 0;
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
+    private Dictionary<Ilocation, LocationInfo> _locationsInfo = new();
     private List<Ilocation> _locations = new();
     private List<Ilocation> _cards = new();
     private GameStatus _gameStatus = GameStatus.NotStarted;
@@ -85,6 +86,10 @@ public class GameController
         return _round;
     }
 
+    /// <summary>
+    /// Get status of the remaining game, are it not started, ongoing, or finished.
+    /// </summary>
+    /// <returns>Return Enum of Game Status</returns>
     public GameStatus GetGameStatus(){
         return _gameStatus;
     }
@@ -198,24 +203,26 @@ public class GameController
         return _playersInfo[player].GetCards();
     }
 
-    public bool GenerateLocation(){
-        // List<MarvelLocation> locations = new List<MarvelLocation>();
-        List<int> listIndex = new List<int>();
-        while (listIndex.Count < 0){
+    /// <summary>
+    /// Generate 3 random location on the game.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<Ilocation> GenerateLocation(){
+        List<MarvelLocation> locations = new List<MarvelLocation>();
+        // List<int> listIndex = new List<int>();
+        while (locations.Count < 3){
             int index = _random.Next(0, _allLocations.Count);
-            if (!listIndex.Contains(index)){
-                listIndex.Add(index);
+            if (!locations.Contains(_allLocations[index])){
+                locations.Add(_allLocations[index]);
             }
         }
-        foreach (int index in listIndex){
-            _randomLoc.Add(_allLocations[index]);
+        foreach (MarvelLocation loc in locations){
+            LocationInfo info = new LocationInfo();
+            info.InitLocPlayer(ListAllPlayer());
+            _locationsInfo.Add(loc, info);
         }
 
-        return true;
-    }
-
-    public List<Ilocation> GetLocations(){
-        return _randomLoc;
+        return locations;
     }
 
     public bool SetPlayerStatus(IPlayer player, PlayerStatus status)

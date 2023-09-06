@@ -39,14 +39,14 @@ public class Program
 
 
         // List All Players
-        var players = game.ListAllPlayer();
-        Console.WriteLine("\nPlayer's ID \t Player's Name");
-        foreach (var player in players)
-        {
-            Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
-        }
+        // var players = game.ListAllPlayer();
+        // Console.WriteLine("\nPlayer's ID \t Player's Name");
+        // foreach (var player in players)
+        // {
+        //     Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
+        // }
 
-        // Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
+        Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
 
         // Console.WriteLine("round: " + game.CheckRound());
         // Console.WriteLine("game status : " + game.GetGameStatus());
@@ -66,39 +66,39 @@ public class Program
 
         do
         {
-            Console.WriteLine("\nPress (y) to start the Game");
+            Console.WriteLine("\nPress Enter to start the Game");
         }
-        while (Console.ReadKey().Key != ConsoleKey.Y);
+        while (Console.ReadKey().Key != ConsoleKey.Enter);
 
        
-
-        var allCards = game.GetAllCards();
-        // foreach (var card in allCards){
-        //     Console.WriteLine(allCards.IndexOf(card) + " : " + card.GetCardName());
-        // }
-
-
+        Console.Clear();
+        List<MarvelCard> allCards = game.GetAllCards();
+        Console.WriteLine("Index \t: Card Name \t\t Cost \t Power \t Description");
+        foreach (var card in allCards){
+            Console.WriteLine($"{allCards.IndexOf(card) + 1}\t: {card.GetCardName()} \t\t {card.GetCardCost()} \t {card.GetCardPower()} \t {card.GetCardDescription()}");
+        }
 
         // Declare Player Deck
-        List<int> deck1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-        List<int> deck2 = new List<int>() { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-        game.SetPlayerDeck(player1, deck1);
-        game.SetPlayerDeck(player2, deck2);
+        // List<int> deck1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+        // List<int> deck2 = new List<int>() { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+        // game.SetPlayerDeck(player1, deck1);
+        // game.SetPlayerDeck(player2, deck2);
 
         // Locations
-        game.GenerateLocation();
-        var locations = game.GetLocations();
+        Console.Clear();
+        game.GetAllLocations();
+        var locations = game.GenerateLocation();
+        Console.WriteLine("\nLocations : ");
+        foreach (var location in locations)
+        {
+            Console.Write(location.GetLocationName() + ", ");
+        }
+       
         
          
 
         var listCard1 = game.GetPlayerDeck(player1);
-        Console.Clear();
-        Console.Write("Locations : ");
-        foreach (var loc in locations){
-            Console.Write(loc.GetLocationName());
-        }
-
-        Console.Write($"{player1.GetPlayerName()}'s Deck : ");
+        Console.Write($"\n{player1.GetPlayerName()}'s Deck : ");
         foreach (var card in listCard1)
         {
             Console.Write(card.GetCardName() + ", ");

@@ -10,6 +10,7 @@ public class MarvelCard : ICard
     [DataMember] private int _cardPower;
     [DataMember] private CardType _cardType;
     [DataMember] private CardSkill _cardSkill;
+    [DataMember] private string _cardDescription = "";
 
 
     public MarvelCard(string name, int cost, int power, CardType type, CardSkill skill){
@@ -36,7 +37,7 @@ public class MarvelCard : ICard
         return true;
     }
 
-    public string GetCardName(){
+    public string? GetCardName(){
         return _cardName;
     }
 
@@ -46,6 +47,14 @@ public class MarvelCard : ICard
 
     public int GetCardPower(){
         return _cardPower;
+    }
+
+    public CardType GetCardType(){
+        return _cardType;
+    }
+
+    public string? GetCardDescription(){
+        return _cardDescription;
     }
 
     public MarvelCard Copy(){

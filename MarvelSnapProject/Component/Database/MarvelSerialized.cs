@@ -57,16 +57,16 @@ public class MarvelSerialized{
         List<MarvelCard> importCards;
         using (FileStream streamCard2 = new FileStream(@".\Component\Database\cards.json", FileMode.OpenOrCreate))
         {
-            importCards = (List<MarvelCard>)serCard.ReadObject(streamCard2);
+            importCards = (List<MarvelCard>)serCard?.ReadObject(streamCard2);
         }
         return importCards;
     }
-
+//@".\Component\Database\locations.json"
     public List<MarvelLocation> ImportLocations(){
         List<MarvelLocation> importLocations;
         using (FileStream streamLoc2 = new FileStream(@".\Component\Database\locations.json", FileMode.OpenOrCreate))
         {
-            importLocations = (List<MarvelLocation>)serLoc.ReadObject(streamLoc2);
+            importLocations = (List<MarvelLocation>)serLoc?.ReadObject(streamLoc2);
         }
         return importLocations;
     }
