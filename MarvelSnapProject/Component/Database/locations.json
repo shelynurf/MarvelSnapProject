@@ -1,33 +1,41 @@
 [
    {
+      "_locDescription": "Cards here have -2 Power.",
       "_locSkill": 0,
       "_locationName": "Necrosha"
    },
    {
+      "_locDescription": "Add a Squirrel to each location.",
       "_locSkill": 1,
       "_locationName": "Central Park"
    },
    {
+      "_locDescription": "Cards here have -3 Power.",
       "_locSkill": 2,
       "_locationName": "Negative Zone"
    },
    {
+      "_locDescription": "If you have no cards here, +1 energy each turn.",
       "_locSkill": 3,
       "_locationName": "The Superflow"
    },
    {
+      "_locDescription": "After turn 4, whoever is winning here draws 2.",
       "_locSkill": 4,
       "_locationName": "Asgard"
    },
    {
+      "_locDescription": "No cards are revealed this turn.",
       "_locSkill": 5,
       "_locationName": "Lemuria"
    },
    {
+      "_locDescription": "Cards that cost 4, 5, or 6 can’t be played here.",
       "_locSkill": 6,
       "_locationName": "The Big House"
    },
    {
+      "_locDescription": "Shuffle 5 rocks into each deck.",
       "_locSkill": 7,
       "_locationName": "Subterranea"
    }

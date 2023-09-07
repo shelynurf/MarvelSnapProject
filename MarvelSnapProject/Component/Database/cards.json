@@ -9,7 +9,7 @@
    },
    {
       "_cardCost": 1,
-      "_cardDescription": "Default",
+      "_cardDescription": "We've got to save this city.",
       "_cardName": "Misty Knight",
       "_cardPower": 2,
       "_cardSkill": 1,
@@ -17,7 +17,7 @@
    },
    {
       "_cardCost": 5,
-      "_cardDescription": "Default",
+      "_cardDescription": "Foolish rabble! You are beneath me!",
       "_cardName": "Abomination",
       "_cardPower": 9,
       "_cardSkill": 2,
@@ -25,7 +25,7 @@
    },
    {
       "_cardCost": 3,
-      "_cardDescription": "Default",
+      "_cardDescription": "Lets move, X-Men.",
       "_cardName": "Cyclops",
       "_cardPower": 4,
       "_cardSkill": 3,
@@ -33,8 +33,8 @@
    },
    {
       "_cardCost": 6,
-      "_cardDescription": "Default",
-      "_cardName": "Hulk",
+      "_cardDescription": "HULK SMASH!",
+      "_cardName": "Hulk  ",
       "_cardPower": 12,
       "_cardSkill": 4,
       "_cardType": 0
@@ -65,7 +65,7 @@
    },
    {
       "_cardCost": 1,
-      "_cardDescription": "Default",
+      "_cardDescription": "Starts in your opening hand.",
       "_cardName": "Quicksilver",
       "_cardPower": 2,
       "_cardSkill": 8,
@@ -81,7 +81,7 @@
    },
    {
       "_cardCost": 2,
-      "_cardDescription": "Default",
+      "_cardDescription": "Im gonna blast you!",
       "_cardName": "Shocker",
       "_cardPower": 3,
       "_cardSkill": 10,
@@ -97,7 +97,7 @@
    },
    {
       "_cardCost": 4,
-      "_cardDescription": "Default",
+      "_cardDescription": "It's clobberin time!",
       "_cardName": "The Thing",
       "_cardPower": 6,
       "_cardSkill": 12,
@@ -121,7 +121,7 @@
    },
    {
       "_cardCost": 1,
-      "_cardDescription": "Default",
+      "_cardDescription": "squeak!",
       "_cardName": "Squirrel",
       "_cardPower": 1,
       "_cardSkill": 15,

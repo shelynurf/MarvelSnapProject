@@ -37,7 +37,7 @@ public class MarvelCard : ICard
         return true;
     }
 
-    public string? GetCardName(){
+    public string GetCardName(){
         return _cardName;
     }
 

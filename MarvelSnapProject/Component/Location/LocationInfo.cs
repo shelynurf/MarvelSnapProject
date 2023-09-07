@@ -11,5 +11,25 @@ public class LocationInfo{
         }
         return true;
     }
+
+    public Dictionary<IPlayer, List<ICard>> GetCardsOnLoc()
+    {
+        return _cardsLoc;
+    }
+
+    public List<ICard> GetCardsOnLoc(IPlayer player)
+    {
+        return _cardsLoc[player];
+    }
+
+    public Dictionary<IPlayer, int> GetLocScore()
+    {
+        return _scoreLoc;
+    }
+
+    public int GetLocScore(IPlayer player)
+    {
+        return _scoreLoc[player];
+    }
 }
 

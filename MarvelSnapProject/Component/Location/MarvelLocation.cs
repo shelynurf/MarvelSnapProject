@@ -10,6 +10,8 @@ public class MarvelLocation : Ilocation
     private Dictionary<LocPos, int> _locEnergy = new();
     private bool _isFull;
     [DataMember] private LocationSkill _locSkill;
+    [DataMember] private string _locDescription;
+    private bool _isOpened = false;
 
     public MarvelLocation(string name, LocationSkill skill){
         _locationName = name;
@@ -23,17 +25,26 @@ public class MarvelLocation : Ilocation
         _locationName = locationName;
         return true;
     }
-    public bool AddCard(PlayerInfo playerInfo, ICard card, LocPos locPos){
-        return true;
-    }
 
-    public bool SetIsFull(bool check){
-        _isFull = check;
-        return _isFull;
+    public string GetLocDescription()
+    {
+        return _locDescription;
     }
+    // public bool AddCard(PlayerInfo playerInfo, ICard card, LocPos locPos){
+    //     return true;
+    // }
 
-    public bool IsEnergyEligible(ICard card){
-        return true;
+    // public bool SetIsFull(bool check){
+    //     _isFull = check;
+    //     return _isFull;
+    // }
+
+    // public bool IsEnergyEligible(ICard card){
+    //     return true;
+    // }
+    public bool SetIsOpened(bool isOpened){
+        _isOpened = isOpened;
+        return _isOpened;
     }
 
 }

@@ -2,7 +2,7 @@ namespace MarvelSnapProject;
 
 public class PlayerInfo
 {
-	private List<MarvelCard> _deck;
+	private List<MarvelCard>? _deck;
 	private List<ICard> _cards;
 	// private LocPos _playerPos;
 
@@ -24,6 +24,9 @@ public class PlayerInfo
 		return _deck;
 	}
 	
+	public int GetMaxDeck(){
+		return _maxDeck;
+	}
 	public bool AddCardToDeck(MarvelCard card)
 	{
 		_deck?.Add(card);
@@ -35,6 +38,11 @@ public class PlayerInfo
 	public bool AddCard(MarvelCard card){
 		_cards.Add(card);
 		return true;
+	}
+
+	public int GetEnergy()
+	{
+		return _energy;
 	}
 	public bool PopCardFromDeck(MarvelCard card)
 	{

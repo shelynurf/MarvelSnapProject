@@ -4,15 +4,15 @@ public class GameController
 {
     private int _round = 0;
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
-    private Dictionary<Ilocation, LocationInfo> _locationsInfo = new();
+    private Dictionary<MarvelLocation, LocationInfo> _locationsInfo = new();
     private List<Ilocation> _locations = new();
     private List<Ilocation> _cards = new();
     private GameStatus _gameStatus = GameStatus.NotStarted;
     private MarvelSerialized _marvelSer = new MarvelSerialized();
-    private List<MarvelCard> _allCards = new();
+    private List<MarvelCard> _allCards = new List<MarvelCard>();
     private List<MarvelLocation> _allLocations = new();
     private Random _random = new Random();
-    private List<Ilocation> _randomLoc = new();
+    private List<MarvelLocation> _randomLoc = new();
     
     // private IPlayer _turn = new();
 
@@ -167,6 +167,11 @@ public class GameController
         return _playersInfo[player].GetDeck();
     }
 
+    /// <summary>
+    /// Generate cards in hand of each round
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
     public bool GenerateCard(IPlayer player){
         PlayerInfo info = _playersInfo[player];
         // Random random = new Random();
@@ -207,22 +212,94 @@ public class GameController
     /// Generate 3 random location on the game.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Ilocation> GenerateLocation(){
-        List<MarvelLocation> locations = new List<MarvelLocation>();
+    public bool GenerateLocation(){
+        // List<MarvelLocation> locations = new List<MarvelLocation>();
+        // // List<int> listIndex = new List<int>();
+        // while (locations.Count < 3){
+        //     int index = _random.Next(0, _allLocations.Count);
+        //     if (!locations.Contains(_allLocations[index])){
+        //         locations.Add(_allLocations[index]);
+        //     }
+        // }
+        // foreach (MarvelLocation loc in locations){
+        //     LocationInfo info = new LocationInfo();
+        //     info.InitLocPlayer(ListAllPlayer());
+        //     _locationsInfo.Add(loc, info);
+        // }
+
+        // return locations;
+        // List<MarvelLocation> locations = new List<MarvelLocation>();
         // List<int> listIndex = new List<int>();
-        while (locations.Count < 3){
+        while (_randomLoc.Count < 3){
             int index = _random.Next(0, _allLocations.Count);
-            if (!locations.Contains(_allLocations[index])){
-                locations.Add(_allLocations[index]);
+            if (!_randomLoc.Contains(_allLocations[index])){
+                _randomLoc.Add(_allLocations[index]);
             }
         }
-        foreach (MarvelLocation loc in locations){
+        foreach (MarvelLocation loc in _randomLoc){
             LocationInfo info = new LocationInfo();
             info.InitLocPlayer(ListAllPlayer());
             _locationsInfo.Add(loc, info);
         }
 
-        return locations;
+        return true;
+    }
+
+    public List<MarvelLocation> GetLocations(){
+        return _randomLoc;
+    }
+
+    public Dictionary<MarvelLocation, LocationInfo> GetLocationInfo()
+    {
+        return _locationsInfo;
+    }
+
+    public Dictionary<IPlayer, List<ICard>> GetLocationCards(MarvelLocation loc)
+    {
+        return _locationsInfo[loc].GetCardsOnLoc();
+    }
+
+    public List<ICard> GetLocationCards(MarvelLocation loc, IPlayer player)
+    {
+        return _locationsInfo[loc].GetCardsOnLoc(player);
+    }
+
+    public Dictionary<IPlayer, int> GetLocationScore(MarvelLocation loc)
+    {
+        return _locationsInfo[loc].GetLocScore();
+    }    
+    public int GetLocationScore(MarvelLocation loc, IPlayer player)
+    {
+        return _locationsInfo[loc].GetLocScore(player);
+    }
+
+
+
+
+
+    public List<MarvelLocation> OpenedLocation(){
+        int num = 0;
+        List<MarvelLocation> openedLoc = new();
+        // foreach(MarvelLocation loc in _locationsInfo.Keys)
+        foreach(MarvelLocation loc in _randomLoc)
+        {
+            if (num < CheckRound())
+            {
+                openedLoc.Add(loc);
+                loc.SetIsOpened(true);
+                num += 1;
+                
+            }
+            else{
+                break;
+            }
+        }
+        return openedLoc;
+    }
+
+    public int GetPlayerEnergy(IPlayer player)
+    {
+        return _playersInfo[player].GetEnergy();
     }
 
     public bool SetPlayerStatus(IPlayer player, PlayerStatus status)
@@ -271,76 +348,7 @@ public class GameController
 
     //     return true;
     // }
-
-    // public IEnumerable<ICard> GetAllCards()
-    // {
-    //     // List<MarvelCard> allCards = new(){
-    //     //     new("Hawkeye", 1, 1, Enum.CardType.OnReveal, Enum.CardSkill.Hawkeye),
-    //     //     new("Misty Knight", 1, 2, Enum.CardType.Normal, Enum.CardSkill.MistyKnight),
-    //     //     new("Abomination", 5, 9, Enum.CardType.Normal, Enum.CardSkill.Abomination),
-    //     //     new("Cyclops", 3, 4, Enum.CardType.Normal, Enum.CardSkill.Cyclops),
-    //     //     new("Hulk", 6, 12, Enum.CardType.Normal, Enum.CardSkill.Hulk),
-    //     //     new("Iron Man", 5, 0, Enum.CardType.OnGoing, Enum.CardSkill.IronMan),
-    //     //     new("Medusa", 2, 2, Enum.CardType.OnReveal, Enum.CardSkill.Medusa),
-    //     //     new("Punisher", 3, 2, Enum.CardType.OnGoing, Enum.CardSkill.Punisher),
-    //     //     new("Quicksilver", 1, 2, Enum.CardType.Normal, Enum.CardSkill.Quicksilver),
-    //     //     new("Sentinel", 2, 3, Enum.CardType.OnReveal, Enum.CardSkill.Sentinel),
-    //     //     new("Shocker", 2, 3, Enum.CardType.Normal, Enum.CardSkill.Shocker),
-    //     //     new("Star-Lord", 2, 2, Enum.CardType.OnReveal, Enum.CardSkill.StarLord),
-    //     //     new("The Thing", 4, 6, Enum.CardType.Normal, Enum.CardSkill.TheThing),
-    //     //     new("Jessica Jones", 4, 4, Enum.CardType.OnReveal, Enum.CardSkill.JessicaJones),
-    //     //     new("Ant Man", 1, 1, Enum.CardType.OnGoing, Enum.CardSkill.AntMan),
-    //     //     new("Squirrel", 1, 1, Enum.CardType.Normal, Enum.CardSkill.Squirrel)};
-
-    //     List<MarvelCard> cards = new List<MarvelCard>();
-    //     cards.Add(new("Hawkeye", 1, 1, Enum.CardType.OnReveal, Enum.CardSkill.Hawkeye));
-    //     cards.Add(new("Misty Knight", 1, 2, Enum.CardType.Normal, Enum.CardSkill.MistyKnight));
-    //     cards.Add(new("Abomination", 5, 9, Enum.CardType.Normal, Enum.CardSkill.Abomination));
-    //     cards.Add(new("Cyclops", 3, 4, Enum.CardType.Normal, Enum.CardSkill.Cyclops));
-    //     cards.Add(new("Hulk", 6, 12, Enum.CardType.Normal, Enum.CardSkill.Hulk));
-    //     cards.Add(new("Iron Man", 5, 0, Enum.CardType.OnGoing, Enum.CardSkill.IronMan));
-    //     cards.Add(new("Medusa", 2, 2, Enum.CardType.OnReveal, Enum.CardSkill.Medusa));
-    //     cards.Add(new("Punisher", 3, 2, Enum.CardType.OnGoing, Enum.CardSkill.Punisher));
-    //     cards.Add(new("Quicksilver", 1, 2, Enum.CardType.Normal, Enum.CardSkill.Quicksilver));
-    //     cards.Add(new("Sentinel", 2, 3, Enum.CardType.OnReveal, Enum.CardSkill.Sentinel));
-    //     cards.Add(new("Shocker", 2, 3, Enum.CardType.Normal, Enum.CardSkill.Shocker));
-    //     cards.Add(new("Star-Lord", 2, 2, Enum.CardType.OnReveal, Enum.CardSkill.StarLord));
-    //     cards.Add(new("The Thing", 4, 6, Enum.CardType.Normal, Enum.CardSkill.TheThing));
-    //     cards.Add(new("Jessica Jones", 4, 4, Enum.CardType.OnReveal, Enum.CardSkill.JessicaJones));
-    //     cards.Add(new("Ant Man", 1, 1, Enum.CardType.OnGoing, Enum.CardSkill.AntMan));
-    //     cards.Add(new("Squirrel", 1, 1, Enum.CardType.Normal, Enum.CardSkill.Squirrel));
-
-    //     List<ICard> allCards = new();
-    //     foreach (MarvelCard card in cards)
-    //     {
-    //         // List<string> cardsName = new();
-    //         allCards.Add(card);
-
-    //     }
-    //     return allCards;
-
-
-
-    // }
 };
-
-// public IEnumerable<Ilocation> GetAllLocations()
-// {
-//     List<MarvelLocation> allLocation = new List<MarvelLocation>();
-//     {
-//             new("Necrosha", Enum.LocationSkill.Necrosha),
-//             new("Central Park", Enum.LocationSkill.CentralPark),
-//             new("Negative Zone", Enum.LocationSkill.NegativeZone),
-//             new("The Superflow", Enum.LocationSkill.TheSuperflow),
-//             new("Asgard", Enum.LocationSkill.Asgard),
-//             new("Lemuria", Enum.LocationSkill.Lemuria),
-//             new("The Big House", Enum.LocationSkill.TheBigHouse),
-//             new("Subterranea", Enum.LocationSkill.Subterranea),
-
-//         };
-//     return allLocation;
-// }
-
 
 // public bool AddNewCardToLocation(Ilocation location, IPlayer player, ICard card)
 // {

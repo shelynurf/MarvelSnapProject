@@ -3,7 +3,7 @@ using MarvelSnapProject;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-public class Program
+public partial class Program
 {
 
     public static void Main()
@@ -70,32 +70,77 @@ public class Program
         }
         while (Console.ReadKey().Key != ConsoleKey.Enter);
 
-       
+
         Console.Clear();
-        List<MarvelCard> allCards = game.GetAllCards();
-        Console.WriteLine("Index \t: Card Name \t\t Cost \t Power \t Description");
-        foreach (var card in allCards){
-            Console.WriteLine($"{allCards.IndexOf(card) + 1}\t: {card.GetCardName()} \t\t {card.GetCardCost()} \t {card.GetCardPower()} \t {card.GetCardDescription()}");
+        game.NextRound();
+        var allCards = game.GetAllCards();
+        game.GetAllLocations();
+        game.GenerateLocation();
+        List<int> deck1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+        List<int> deck2 = new List<int>() { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+        while (game.GetGameStatus() == GameStatus.Running)
+        {
+            var deckPlayer1 = game.SetPlayerDeck(player1, deck1);
+            var deckPlayer2 = game.SetPlayerDeck(player2, deck2);
+            game.GenerateCard(player1);
+            game.GenerateCard(player2);
+            game.GetAllLocations();
+            // var locations = game.GenerateLocation();
+
+            foreach (IPlayer player in game.ListAllPlayer())
+            {
+                bool placeAgain = true;
+                while (placeAgain)
+                {
+                    DisplayLocation(game, player);
+                    Console.WriteLine("");
+                    DisplayPlayerCards(player, game);
+                    Console.ReadLine();
+
+                }
+            }
+            
+
         }
+
+        
+        // Console.WriteLine(allCards.Count);
+        // Console.WriteLine("Index \t Card Name \t\t Cost \t Power \t Description");
+        
+        // foreach (MarvelCard card in allCards)
+        // {
+        //     if (card.GetCardName().Length < 5)
+        //     {
+        //         Console.WriteLine($"{allCards.IndexOf(card)}\t {card.GetCardName()} \t\t\t {card.GetCardCost()} \t {card.GetCardPower()} \t {card.GetCardDescription()}");
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine($"{allCards.IndexOf(card)}\t {card.GetCardName()} \t\t {card.GetCardCost()} \t {card.GetCardPower()} \t {card.GetCardDescription()}");
+        //     }
+        // }
+
+        // foreach (var card in allCards)
+        // {
+        //     Console.WriteLine(card.GetCardName() + ", ");
+        // }
+
+        // for (int i = 0; i < allCards.Count; i++){
+        //     Console.WriteLine($"{i + 1}\t {allCards[i].GetCardName()} - {allCards[i].GetCardCost()} - {allCards[i].GetCardPower()} - {allCards[i].GetCardDescription()}");
+        // }
 
         // Declare Player Deck
-        // List<int> deck1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-        // List<int> deck2 = new List<int>() { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-        // game.SetPlayerDeck(player1, deck1);
-        // game.SetPlayerDeck(player2, deck2);
+        
 
         // Locations
-        Console.Clear();
-        game.GetAllLocations();
-        var locations = game.GenerateLocation();
-        Console.WriteLine("\nLocations : ");
-        foreach (var location in locations)
-        {
-            Console.Write(location.GetLocationName() + ", ");
-        }
-       
-        
-         
+        // Console.Clear();
+        // var locations = game.GenerateLocation();
+        // foreach (var location in locations)
+        // {   Console.Write($"Location \t: {locations.IndexOf(location)} {location.GetLocationName()}");
+            
+        // }
+
+
+// var allCards = game.GetAllCards();
 
         var listCard1 = game.GetPlayerDeck(player1);
         Console.Write($"\n{player1.GetPlayerName()}'s Deck : ");
