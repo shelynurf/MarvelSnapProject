@@ -3,7 +3,7 @@ namespace MarvelSnapProject;
 public class PlayerInfo
 {
 	private List<MarvelCard>? _deck;
-	private List<ICard> _cards;
+	private List<MarvelCard> _cards;
 	// private LocPos _playerPos;
 
 	private int _energy;
@@ -15,7 +15,7 @@ public class PlayerInfo
 
 	public PlayerInfo(){
 		_deck = new List<MarvelCard>();
-		_cards = new List<ICard>();
+		_cards = new List<MarvelCard>();
 		// _playerPos = new LocPos();
 
 	}
@@ -29,8 +29,12 @@ public class PlayerInfo
 	}
 	public bool AddCardToDeck(MarvelCard card)
 	{
-		_deck?.Add(card);
+		if (!_deck.Contains(card))
+		{
+			_deck?.Add(card);
 		return true;
+		}
+		return false;
 		// if !_deck.contain(card)
 		
 	}
@@ -46,13 +50,17 @@ public class PlayerInfo
 	}
 	public bool PopCardFromDeck(MarvelCard card)
 	{
-		_deck?.Remove(card);
+		if (_deck.Contains(card))
+		{
+			_deck.Remove(card);
 		return true;
+		}
+		return false;
 		// check card is exist or not
 		
 	}
 
-	public List<ICard> GetCards(){
+	public List<MarvelCard> GetCards(){
 		return _cards;
 	}
 	// public IEnumerable<string> GetPlayerInfo()

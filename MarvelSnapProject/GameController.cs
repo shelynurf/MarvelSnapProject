@@ -13,7 +13,7 @@ public class GameController
     private List<MarvelLocation> _allLocations = new();
     private Random _random = new Random();
     private List<MarvelLocation> _randomLoc = new();
-    
+
     // private IPlayer _turn = new();
 
     /// <summary>
@@ -49,7 +49,7 @@ public class GameController
     //     return true;
     // }
 
-    
+
 
     /// <summary>
     /// Remove player instance from the game
@@ -82,7 +82,8 @@ public class GameController
     /// Checking current round of game
     /// </summary>
     /// <returns>current round</returns>
-    public int CheckRound(){
+    public int CheckRound()
+    {
         return _round;
     }
 
@@ -90,7 +91,8 @@ public class GameController
     /// Get status of the remaining game, are it not started, ongoing, or finished.
     /// </summary>
     /// <returns>Return Enum of Game Status</returns>
-    public GameStatus GetGameStatus(){
+    public GameStatus GetGameStatus()
+    {
         return _gameStatus;
     }
 
@@ -98,37 +100,46 @@ public class GameController
     /// Continue the game to the next round
     /// </summary>
     /// <returns></returns>
-    public bool NextRound(){
-        if (_gameStatus == GameStatus.NotStarted && _playersInfo.Count == 2){
+    public bool NextRound()
+    {
+        if (_gameStatus == GameStatus.NotStarted && _playersInfo.Count == 2)
+        {
             _gameStatus = GameStatus.Running;
             _round += 1;
         }
-        else if (_gameStatus == GameStatus.Running){
-            if (_round == 6){
+        else if (_gameStatus == GameStatus.Running)
+        {
+            if (_round == 6)
+            {
                 _gameStatus = GameStatus.Finished;
             }
-            else {
+            else
+            {
                 _round += 1;
             }
         }
-        
-        foreach (PlayerInfo info in _playersInfo.Values){
+
+        foreach (PlayerInfo info in _playersInfo.Values)
+        {
             info.SetEnergy(_round);
         }
         return true;
     }
 
-    public List<MarvelCard> GetAllCards(){
+    public List<MarvelCard> GetAllCards()
+    {
         _allCards = _marvelSer.ImportCards();
         return _allCards;
     }
 
-    public List<MarvelLocation> GetAllLocations(){
+    public List<MarvelLocation> GetAllLocations()
+    {
         _allLocations = _marvelSer.ImportLocations();
         return _allLocations;
     }
 
-    public bool SetPlayerDeck(IPlayer player, List<int> listCardIndex){
+    public bool SetPlayerDeck(IPlayer player, List<int> listCardIndex)
+    {
         // PlayerInfo info = _playersInfo[player];
         // Random random = new Random();
         // List<int> randomList = new List<int>();
@@ -156,14 +167,16 @@ public class GameController
         //         randomList.Add(indexCard);
         //     }
         // }
-        foreach(int index in indexCard){
+        foreach (int index in indexCard)
+        {
             MarvelCard card = _allCards[index].Copy();
             info.AddCardToDeck(card);
         }
         return true;
     }
 
-    public List<MarvelCard> GetPlayerDeck(IPlayer player){
+    public List<MarvelCard> GetPlayerDeck(IPlayer player)
+    {
         return _playersInfo[player].GetDeck();
     }
 
@@ -172,27 +185,34 @@ public class GameController
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public bool GenerateCard(IPlayer player){
+    public bool GenerateCard(IPlayer player)
+    {
         PlayerInfo info = _playersInfo[player];
         // Random random = new Random();
         List<MarvelCard> deck = info.GetDeck();
         List<int> listIndex = new List<int>();
-        if (_round == 1 ){
-            while (listIndex.Count < 4){
+        if (_round == 1)
+        {
+            while (listIndex.Count < 4)
+            {
                 int ind = _random.Next(0, deck.Count);
-                if (!listIndex.Contains(ind)){
+                if (!listIndex.Contains(ind))
+                {
                     listIndex.Add(ind);
                 }
             }
         }
-        else {
+        else
+        {
             int ind = _random.Next(0, deck.Count);
-            if (!listIndex.Contains(ind)){
-                    listIndex.Add(ind);
-                }
+            if (!listIndex.Contains(ind))
+            {
+                listIndex.Add(ind);
+            }
         }
 
-        foreach (int ind in listIndex){
+        foreach (int ind in listIndex)
+        {
             MarvelCard card = deck[ind].Copy();
             info.AddCard(card);
         }
@@ -204,7 +224,8 @@ public class GameController
         // return true;
     }
 
-    public List<ICard> GetPlayerCards(IPlayer player){
+    public List<MarvelCard> GetPlayerCards(IPlayer player)
+    {
         return _playersInfo[player].GetCards();
     }
 
@@ -212,7 +233,8 @@ public class GameController
     /// Generate 3 random location on the game.
     /// </summary>
     /// <returns></returns>
-    public bool GenerateLocation(){
+    public bool GenerateLocation()
+    {
         // List<MarvelLocation> locations = new List<MarvelLocation>();
         // // List<int> listIndex = new List<int>();
         // while (locations.Count < 3){
@@ -230,13 +252,16 @@ public class GameController
         // return locations;
         // List<MarvelLocation> locations = new List<MarvelLocation>();
         // List<int> listIndex = new List<int>();
-        while (_randomLoc.Count < 3){
+        while (_randomLoc.Count < 3)
+        {
             int index = _random.Next(0, _allLocations.Count);
-            if (!_randomLoc.Contains(_allLocations[index])){
+            if (!_randomLoc.Contains(_allLocations[index]))
+            {
                 _randomLoc.Add(_allLocations[index]);
             }
         }
-        foreach (MarvelLocation loc in _randomLoc){
+        foreach (MarvelLocation loc in _randomLoc)
+        {
             LocationInfo info = new LocationInfo();
             info.InitLocPlayer(ListAllPlayer());
             _locationsInfo.Add(loc, info);
@@ -245,7 +270,8 @@ public class GameController
         return true;
     }
 
-    public List<MarvelLocation> GetLocations(){
+    public List<MarvelLocation> GetLocations()
+    {
         return _randomLoc;
     }
 
@@ -267,30 +293,28 @@ public class GameController
     public Dictionary<IPlayer, int> GetLocationScore(MarvelLocation loc)
     {
         return _locationsInfo[loc].GetLocScore();
-    }    
+    }
     public int GetLocationScore(MarvelLocation loc, IPlayer player)
     {
         return _locationsInfo[loc].GetLocScore(player);
     }
 
-
-
-
-
-    public List<MarvelLocation> OpenedLocation(){
+    public List<MarvelLocation> OpenedLocation()
+    {
         int num = 0;
         List<MarvelLocation> openedLoc = new();
         // foreach(MarvelLocation loc in _locationsInfo.Keys)
-        foreach(MarvelLocation loc in _randomLoc)
+        foreach (MarvelLocation loc in _randomLoc)
         {
             if (num < CheckRound())
             {
                 openedLoc.Add(loc);
                 loc.SetIsOpened(true);
                 num += 1;
-                
+
             }
-            else{
+            else
+            {
                 break;
             }
         }
@@ -300,6 +324,46 @@ public class GameController
     public int GetPlayerEnergy(IPlayer player)
     {
         return _playersInfo[player].GetEnergy();
+    }
+
+    public List<ICard> GetPlayableCard(IPlayer player)
+    {
+        List<ICard> playableCard = new();
+        PlayerInfo info = _playersInfo[player];
+        List<MarvelCard> listCard = info.GetCards();
+        int energy = info.GetEnergy();
+
+        foreach (ICard card in listCard)
+        {
+            if (card.GetCardCost() <= energy)
+            {
+                playableCard.Add(card);
+            }
+        }
+        return playableCard;
+    }
+
+    public bool IsCardValid(IPlayer player, int cardIndex)
+    {
+        return GetPlayableCard(player).Contains(GetPlayerCards(player)[cardIndex - 1]);
+    }
+
+    public bool PlaceCard(IPlayer player, int cardIndex, int locIndex)
+    {
+        MarvelCard selectedCard = GetPlayerCards(player)[cardIndex - 1];
+        MarvelLocation selectedLoc = _randomLoc[locIndex - 1];
+        LocationInfo locInfo = _locationsInfo[selectedLoc];
+        locInfo.PlaceCard(player, selectedCard);
+
+        _playersInfo[player].PopCardFromDeck(selectedCard);
+        
+        
+
+
+
+
+
+        return true;
     }
 
     public bool SetPlayerStatus(IPlayer player, PlayerStatus status)
@@ -338,6 +402,31 @@ public class GameController
     {
         return true;
     }
+
+    // public MarvelLocation ConvertIndexToLoc(int locIndex)
+    // {
+
+    // }
+
+    public bool IsCardFullInLocation(IPlayer player, int locIndex)
+    {
+        MarvelLocation selectedLoc = _randomLoc[locIndex - 1];
+        if (locIndex < 1 || locIndex > _randomLoc.Count)
+        {
+            return false;
+        }
+
+        if (_locationsInfo[selectedLoc].GetCardsOnLoc(player).Count > 3)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    // public IPlayer GetWinner(Ilocation location)
+    // {
+
+    // }
     // public List<ICard> ListAllCardFromPlayer(IPlayer player){
 
     // }
@@ -354,13 +443,8 @@ public class GameController
 // {
 //     return true;
 // }
-// public bool IsCardFullInLocation(Ilocation location)
-// {
-//     return true;
-// }
-// public IPlayer GetWinner(Ilocation location){
 
-// }
+
 // public bool SetGameMode(GameMode gameMode)
 // {
 //     return true;

@@ -31,5 +31,20 @@ public class LocationInfo{
     {
         return _scoreLoc[player];
     }
+
+    public bool PlaceCard(IPlayer player, ICard card)
+    {
+        _cardsLoc[player].Add(card);
+        CalculateScore(player, card);
+        return true;
+    }
+
+    public bool CalculateScore(IPlayer player, ICard card)
+    {
+        _scoreLoc[player] += card.GetCardPower();
+        return true;
+    }
+
+    
 }
 

@@ -97,6 +97,63 @@ public partial class Program
                     DisplayPlayerCards(player, game);
                     Console.ReadLine();
 
+                    bool cardValid = false;
+                    bool endTurn = false;
+                    while (!cardValid)
+                    {
+                        bool marker;
+                        int cardIndex;
+                        do{
+                            Console.WriteLine("Input Card index will be placed : (0 to pass turn)");
+                            marker = int.TryParse(Console.ReadLine(), out cardIndex);
+                            if(!marker || cardIndex > game.GetPlayerCards(player).Count)
+                            {
+                                Console.WriteLine("Invalid. Please input a valid index Card!");
+                            }
+                        }
+                        while (!marker);
+
+                        if (cardIndex == 0)
+                        {
+                            endTurn = true;
+                            break;
+                        }
+
+                        if (game.IsCardValid(player, cardIndex))
+                        {
+                            bool markerLoc;
+                            bool isLocFull;
+                            int locIndex;
+                            do{
+                                Console.Write("Input index location to place the card : ");
+                                markerLoc = int.TryParse(Console.ReadLine(), out locIndex);
+                                isLocFull = game.IsCardFullInLocation(player, locIndex);
+                                if(!marker || !isLocFull || locIndex > game.GetLocations().Count)
+                                {
+                                    if (locIndex == 0)
+                                    {
+                                        break;
+                                    }
+                                    Console.WriteLine("Invalid");
+                                    markerLoc = false;
+                                }
+                            }
+                            while (!markerLoc);
+
+                            if (locIndex == 0)
+							{
+								endTurn = true;
+								break;
+							}
+
+                                                        
+                        }
+
+                        
+                    }
+
+
+
                 }
             }
             
@@ -157,51 +214,51 @@ public partial class Program
         }
 
         // Generate Card
-        game.NextRound();
-        Console.WriteLine("\n");
-        Console.WriteLine("Round : " + game.CheckRound());
-        Console.WriteLine("\n");
-        foreach (IPlayer player in game.ListAllPlayer())
-        {
-            game.GenerateCard(player);
-            List<ICard> cardPlayer = game.GetPlayerCards(player);
-            Console.Write($"{player.GetPlayerName()}'s card : ");
-            foreach (MarvelCard card in cardPlayer)
-            {
-                Console.Write(card.GetCardName() + ", ");
-            }
-            Console.WriteLine("\n");
-        }
-
-        // game.GenerateCard(player1);
-        // List<ICard> cardPlayer1 = game.GetPlayerCards(player1);
-        // Console.Write($"{player1.GetPlayerName()}'s card : ");
-        // foreach (MarvelCard card in cardPlayer1){
-        //     Console.Write(card.GetCardName() + ", ");
+        // game.NextRound();
+        // Console.WriteLine("\n");
+        // Console.WriteLine("Round : " + game.CheckRound());
+        // Console.WriteLine("\n");
+        // foreach (IPlayer player in game.ListAllPlayer())
+        // {
+        //     game.GenerateCard(player);
+        //     List<ICard> cardPlayer = game.GetPlayerCards(player);
+        //     Console.Write($"{player.GetPlayerName()}'s card : ");
+        //     foreach (MarvelCard card in cardPlayer)
+        //     {
+        //         Console.Write(card.GetCardName() + ", ");
+        //     }
+        //     Console.WriteLine("\n");
         // }
 
-        // game.GenerateCard(player2);
-        // List<ICard> cardPlayer2 = game.GetPlayerCards(player2);
-        // Console.Write($"\n{player2.GetPlayerName()}'s card : ");
-        // foreach (MarvelCard card in cardPlayer2){
-        //     Console.Write(card.GetCardName() + ", ");
-        // }
+        // // game.GenerateCard(player1);
+        // // List<ICard> cardPlayer1 = game.GetPlayerCards(player1);
+        // // Console.Write($"{player1.GetPlayerName()}'s card : ");
+        // // foreach (MarvelCard card in cardPlayer1){
+        // //     Console.Write(card.GetCardName() + ", ");
+        // // }
 
-        game.NextRound();
-        Console.WriteLine("\n");
-        Console.WriteLine("Round : " + game.CheckRound());
-        Console.WriteLine("\n");
-        foreach (IPlayer player in game.ListAllPlayer())
-        {
-            game.GenerateCard(player);
-            List<ICard> cardPlayer = game.GetPlayerCards(player);
-            Console.Write($"{player.GetPlayerName()}'s card : ");
-            foreach (MarvelCard card in cardPlayer)
-            {
-                Console.Write(card.GetCardName() + ", ");
-            }
-            Console.WriteLine("\n");
-        }
+        // // game.GenerateCard(player2);
+        // // List<ICard> cardPlayer2 = game.GetPlayerCards(player2);
+        // // Console.Write($"\n{player2.GetPlayerName()}'s card : ");
+        // // foreach (MarvelCard card in cardPlayer2){
+        // //     Console.Write(card.GetCardName() + ", ");
+        // // }
+
+        // game.NextRound();
+        // Console.WriteLine("\n");
+        // Console.WriteLine("Round : " + game.CheckRound());
+        // Console.WriteLine("\n");
+        // foreach (IPlayer player in game.ListAllPlayer())
+        // {
+        //     game.GenerateCard(player);
+        //     List<ICard> cardPlayer = game.GetPlayerCards(player);
+        //     Console.Write($"{player.GetPlayerName()}'s card : ");
+        //     foreach (MarvelCard card in cardPlayer)
+        //     {
+        //         Console.Write(card.GetCardName() + ", ");
+        //     }
+        //     Console.WriteLine("\n");
+        // }
 
 
 
