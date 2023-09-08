@@ -4,5 +4,5 @@ public enum PlayerStatus
 {
     Win,
     Lose,
-    Default
+    Draw
 }

@@ -14,6 +14,8 @@ public class GameController
     private Random _random = new Random();
     private List<MarvelLocation> _randomLoc = new();
 
+    private string _winner;
+
     // private IPlayer _turn = new();
 
     /// <summary>
@@ -289,7 +291,6 @@ public class GameController
     {
         return _locationsInfo[loc].GetCardsOnLoc(player);
     }
-
     public Dictionary<IPlayer, int> GetLocationScore(MarvelLocation loc)
     {
         return _locationsInfo[loc].GetLocScore();
@@ -297,6 +298,105 @@ public class GameController
     public int GetLocationScore(MarvelLocation loc, IPlayer player)
     {
         return _locationsInfo[loc].GetLocScore(player);
+    }
+
+    public Dictionary<MarvelLocation, IPlayer> GetLocationWinner()
+    {
+        Dictionary<MarvelLocation, IPlayer> locWinner = new();
+        foreach(var kvp in _locationsInfo)
+        {
+
+            IPlayer winner = _locationsInfo[kvp.Key].GetLocWinner();
+            locWinner.Add(kvp.Key, winner);
+        }
+        return locWinner;
+    }
+
+    public IPlayer GetLocationWinner(MarvelLocation loc)
+    {
+        return _locationsInfo[loc].GetLocWinner();
+    }
+
+    public Dictionary<IPlayer,int> GetTotalScore()
+    {
+        Dictionary<IPlayer,int> totalScore = new();
+        foreach(var kvpPlayer in _playersInfo)
+        {
+            IPlayer player = kvpPlayer.Key;
+            int playerScore = 0;
+            foreach (var kvpLoc in _locationsInfo)
+            {
+                LocationInfo locInfo = kvpLoc.Value;
+                playerScore += locInfo.GetLocScore()[player];
+            }
+            totalScore.Add(player, playerScore);
+        }
+        return totalScore;
+    }
+
+    public bool SyncTotalWin()
+    {
+        foreach (var kvp in GetLocationWinner())
+        {
+            foreach (IPlayer player in ListAllPlayer())
+            {
+                if (kvp.Value == player)
+                {
+                    _playersInfo[player].AddTotalWin();
+                }
+            }
+        }
+        return true;
+    }
+
+    public Dictionary<IPlayer, int> GetTotalWin()
+    {
+        Dictionary<IPlayer, int> totalWinPlayers = new();
+        foreach (var kvp in _playersInfo)
+        {
+            IPlayer player = kvp.Key;
+            PlayerInfo info = kvp.Value;
+            int win = info.GetTotalWin();
+            totalWinPlayers.Add(player,win);
+        }
+        return totalWinPlayers;
+    }
+
+    public string GetWinner()
+    {
+        int higestWin = 0;
+        int higestTotalScore = 0;
+        string winner = null;
+        foreach (var kvp in GetTotalWin())
+        {
+            IPlayer player = kvp.Key;
+            int win = kvp.Value;
+            if (win > higestWin)
+            {
+                higestWin = win;
+                winner = player.GetPlayerName();
+            }
+            else if(win == higestWin)
+            {
+                if(GetTotalScore()[player] > higestTotalScore)
+                {
+                    higestTotalScore = GetTotalScore()[player];
+                    winner = player.GetPlayerName();
+                }
+                else if(GetTotalScore()[player] == higestTotalScore)
+                {
+                    winner = "DRAW";
+                }
+            }
+        }
+        return winner;
+    }
+
+
+    public bool SetLocationScore(MarvelLocation loc, IPlayer player, int score)
+    {
+        
+        return true;
     }
 
     public List<MarvelLocation> OpenedLocation()
@@ -351,18 +451,15 @@ public class GameController
     public bool PlaceCard(IPlayer player, int cardIndex, int locIndex)
     {
         MarvelCard selectedCard = GetPlayerCards(player)[cardIndex - 1];
-        MarvelLocation selectedLoc = _randomLoc[locIndex - 1];
+        MarvelLocation selectedLoc = OpenedLocation()[locIndex - 1];
         LocationInfo locInfo = _locationsInfo[selectedLoc];
+        PlayerInfo info = _playersInfo[player];
+        int currentEnergy = info.GetEnergy();
         locInfo.PlaceCard(player, selectedCard);
 
-        _playersInfo[player].PopCardFromDeck(selectedCard);
-        
-        
-
-
-
-
-
+        info.PopCardFromDeck(selectedCard);
+        info.RemoveCard(selectedCard);
+        info.SetEnergy(currentEnergy - selectedCard.GetCardCost());
         return true;
     }
 

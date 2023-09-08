@@ -7,10 +7,11 @@ public class PlayerInfo
 	// private LocPos _playerPos;
 
 	private int _energy;
-	private int _locScore;
-	private PlayerStatus _playerStatus;
+	private Dictionary<MarvelLocation, int> _locScore;
+	private Dictionary<MarvelLocation, PlayerStatus> _playerStatus;
 
 	private int _maxDeck = 12;
+	private int _totalWin;
 
 
 	public PlayerInfo(){
@@ -35,19 +36,8 @@ public class PlayerInfo
 		return true;
 		}
 		return false;
-		// if !_deck.contain(card)
-		
 	}
 
-	public bool AddCard(MarvelCard card){
-		_cards.Add(card);
-		return true;
-	}
-
-	public int GetEnergy()
-	{
-		return _energy;
-	}
 	public bool PopCardFromDeck(MarvelCard card)
 	{
 		if (_deck.Contains(card))
@@ -55,10 +45,33 @@ public class PlayerInfo
 			_deck.Remove(card);
 		return true;
 		}
-		return false;
-		// check card is exist or not
-		
+		return false;		
 	}
+
+	public bool AddCard(MarvelCard card){
+		if (!_cards.Contains(card))
+		{
+			_cards.Add(card);
+		return true;
+		}
+		return false;
+	}
+
+	public bool RemoveCard(MarvelCard card)
+	{
+		if (_cards.Contains(card))
+		{
+			_cards.Remove(card);
+			return true;
+		}
+		return false;
+	}
+
+	public int GetEnergy()
+	{
+		return _energy;
+	}
+	
 
 	public List<MarvelCard> GetCards(){
 		return _cards;
@@ -91,6 +104,18 @@ public class PlayerInfo
 		return true;
 	}
 
+	public bool AddTotalWin()
+	{
+		_totalWin += 1;
+		return true;
+	}
+
+	public int GetTotalWin()
+	{
+		return _totalWin;
+	}
+
+
 	// public int GetLocScore(Ilocation location)
 	// {
 		
@@ -98,10 +123,10 @@ public class PlayerInfo
 
 
 	
-	public bool SetPlayerStatus(PlayerStatus playerStatus)
+	// public bool SetPlayerStatus(MarvelLocation loc, PlayerStatus playerStatus)
 	
-	{
-		_playerStatus = playerStatus;
-		return true;
-	}
+	// {
+	// 	_playerStatus[loc] = playerStatus;
+	// 	return true;
+	// }
 }

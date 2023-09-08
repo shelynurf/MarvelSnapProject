@@ -62,4 +62,10 @@ public class MarvelCard : ICard
         copy._cardName = _cardName;
         return copy;
     }
+
+    // public bool Action(Delegate action)
+    // {
+    //     delegate.Invoke();
+    //     return true;
+    // }
 }

@@ -11,14 +11,16 @@ public partial class Program
         GameController game = new();
 
         Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("==== Welcome To Marvel Snap ==== \n");
+        Console.ResetColor();
 
         // Add Player
         string? name1, name2;
         IPlayer player1, player2;
         do
         {
-            Console.Write("Input First Player's Name : ");
+            Console.Write("Input First Player's Name \t: ");
             name1 = Console.ReadLine();
             name1 = char.ToUpper(name1[0]) + name1.Substring(1);
             player1 = new MarvelPlayer(name1, 111);
@@ -29,7 +31,7 @@ public partial class Program
         do
         {
 
-            Console.Write("Input Second Player's Name : ");
+            Console.Write("Input Second Player's Name \t: ");
             name2 = Console.ReadLine();
             name2 = char.ToUpper(name2[0]) + name2.Substring(1);
             player2 = new MarvelPlayer(name2, 112);
@@ -45,7 +47,7 @@ public partial class Program
         // {
         //     Console.WriteLine(player.GetPlayerID() + "\t\t\t" + player.GetPlayerName());
         // }
-
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"\nWelcome {player1.GetPlayerName()} and {player2.GetPlayerName()} ! \nLets Play !! \n");
 
         // Console.WriteLine("round: " + game.CheckRound());
@@ -63,12 +65,13 @@ public partial class Program
         // Console.WriteLine("game status : " + game.GetGameStatus());
 
 
-
+        Console.ForegroundColor = ConsoleColor.Yellow;
         do
         {
             Console.WriteLine("\nPress Enter to start the Game");
         }
         while (Console.ReadKey().Key != ConsoleKey.Enter);
+        Console.ResetColor();
 
 
         Console.Clear();
@@ -85,17 +88,20 @@ public partial class Program
             game.GenerateCard(player1);
             game.GenerateCard(player2);
             game.GetAllLocations();
+            Console.Clear();
             // var locations = game.GenerateLocation();
 
             foreach (IPlayer player in game.ListAllPlayer())
             {
-                bool placeAgain = true;
-                while (placeAgain)
+                bool placeMore = true;
+                Console.Clear();
+                while (placeMore)
                 {
+                    // Console.Clear();
                     DisplayLocation(game, player);
                     Console.WriteLine("");
                     DisplayPlayerCards(player, game);
-                    Console.ReadLine();
+                    Console.WriteLine("");
 
                     bool cardValid = false;
                     bool endTurn = false;
@@ -103,15 +109,26 @@ public partial class Program
                     {
                         bool marker;
                         int cardIndex;
-                        do{
-                            Console.WriteLine("Input Card index will be placed : (0 to pass turn)");
+                        do
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write("Input Card index to be placed (0 to pass turn) : ");
                             marker = int.TryParse(Console.ReadLine(), out cardIndex);
-                            if(!marker || cardIndex > game.GetPlayerCards(player).Count)
+                            if (!marker)
                             {
-                                Console.WriteLine("Invalid. Please input a valid index Card!");
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Make sure the index entered is a number");
+
+                            }
+                            else if (cardIndex > game.GetPlayerCards(player).Count)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Index not available!");
+                                marker = false;
                             }
                         }
                         while (!marker);
+
 
                         if (cardIndex == 0)
                         {
@@ -122,48 +139,120 @@ public partial class Program
                         if (game.IsCardValid(player, cardIndex))
                         {
                             bool markerLoc;
-                            bool isLocFull;
+                            // bool isLocFull;
                             int locIndex;
-                            do{
-                                Console.Write("Input index location to place the card : ");
+                            do
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                Console.Write("Input Location index to place the card (0 to pass turn): ");
                                 markerLoc = int.TryParse(Console.ReadLine(), out locIndex);
-                                isLocFull = game.IsCardFullInLocation(player, locIndex);
-                                if(!marker || !isLocFull || locIndex > game.GetLocations().Count)
+
+                                // try {
+                                //     isLocFull = game.IsCardFullInLocation(player, locIndex);
+                                // }
+                                // catch (Exception e)
+                                // {
+                                //     Console.WriteLine(e.Message);
+                                // }
+                                // isLocFull = game.IsCardFullInLocation(player, locIndex);
+                                
+                                if (!markerLoc)
                                 {
                                     if (locIndex == 0)
                                     {
+                                        endTurn = true;
                                         break;
                                     }
-                                    Console.WriteLine("Invalid");
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Make sure the index entered is a number");
+                                    // markerLoc = false;
+                                }
+                                else if(locIndex > game.OpenedLocation().Count)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Index not available!");
+                                    markerLoc = false;
+                                }
+                                else if(!game.IsCardFullInLocation(player, locIndex))
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Location is Full");
                                     markerLoc = false;
                                 }
                             }
                             while (!markerLoc);
 
                             if (locIndex == 0)
-							{
-								endTurn = true;
-								break;
-							}
+                            {
+                                endTurn = true;
+                                break;
+                            }
 
-                                                        
+                            game.PlaceCard(player, cardIndex, locIndex);
+                            cardValid = true;
                         }
 
-                        
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("You don't have enough energy!");
+                        } 
                     }
 
+                    // game.ApplyOnGoingLocs();
 
+                    if (endTurn)
+                    {
+                        Console.Clear();
+                        break;
+                    }
+                    Console.ResetColor();
 
+                    // Console.Clear();
+                    DisplayLocation(game, player);
+                    Console.WriteLine("\n");
+                    DisplayPlayerCards(player, game);
+                    Console.WriteLine("\n");
+
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("Wanna place more cards? (Y/N)  ");
+                    string more = null;
+                    bool valid = false;
+                    do
+                    {
+                        more = Console.ReadLine();
+                        if (more == "n" || more == "N")
+                        {
+                            placeMore = false;
+                            valid = true;
+                        }
+                        else if (more == "y" || more == "Y")
+                        {
+                            valid = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Invalid");
+                        }
+                    } while (!valid);
+                    Console.ResetColor();
+
+                    Console.Clear();
                 }
+                Console.Clear();
             }
-            
 
+            game.NextRound();
         }
+        DisplayWinner(game);
 
-        
+
+
+
         // Console.WriteLine(allCards.Count);
         // Console.WriteLine("Index \t Card Name \t\t Cost \t Power \t Description");
-        
+
         // foreach (MarvelCard card in allCards)
         // {
         //     if (card.GetCardName().Length < 5)
@@ -186,32 +275,32 @@ public partial class Program
         // }
 
         // Declare Player Deck
-        
+
 
         // Locations
         // Console.Clear();
         // var locations = game.GenerateLocation();
         // foreach (var location in locations)
         // {   Console.Write($"Location \t: {locations.IndexOf(location)} {location.GetLocationName()}");
-            
+
         // }
 
 
-// var allCards = game.GetAllCards();
+        // var allCards = game.GetAllCards();
 
-        var listCard1 = game.GetPlayerDeck(player1);
-        Console.Write($"\n{player1.GetPlayerName()}'s Deck : ");
-        foreach (var card in listCard1)
-        {
-            Console.Write(card.GetCardName() + ", ");
-        }
+        // var listCard1 = game.GetPlayerDeck(player1);
+        // Console.Write($"\n{player1.GetPlayerName()}'s Deck : ");
+        // foreach (var card in listCard1)
+        // {
+        //     Console.Write(card.GetCardName() + ", ");
+        // }
 
-        var listCard2 = game.GetPlayerDeck(player2);
-        Console.Write($"\n{player2.GetPlayerName()}'s Deck : ");
-        foreach (var card in listCard2)
-        {
-            Console.Write(card.GetCardName() + ", ");
-        }
+        // var listCard2 = game.GetPlayerDeck(player2);
+        // Console.Write($"\n{player2.GetPlayerName()}'s Deck : ");
+        // foreach (var card in listCard2)
+        // {
+        //     Console.Write(card.GetCardName() + ", ");
+        // }
 
         // Generate Card
         // game.NextRound();
@@ -260,6 +349,7 @@ public partial class Program
         //     Console.WriteLine("\n");
         // }
 
+        
 
 
 
@@ -269,4 +359,5 @@ public partial class Program
 
 
     }
+
 }

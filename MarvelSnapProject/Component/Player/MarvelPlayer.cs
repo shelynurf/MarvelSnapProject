@@ -24,4 +24,14 @@ public class MarvelPlayer : IPlayer{
         _playerID = id;
         return true;
     }
+
+    public PlayerStatus GetPlayerStatus(){
+        return _playerStatus;
+    }
+
+    public bool SetPlayerStatus(PlayerStatus status)
+    {
+        _playerStatus = status;
+        return true;
+    }
 }
