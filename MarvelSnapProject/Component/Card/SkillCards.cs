@@ -14,13 +14,17 @@ public class SkillCards
         return true;
     }
 
-    public bool SkillMedusa(GameController game)
-    {
-        return true;
-    }
+    // public bool SkillMedusa(GameController game, IPlayer player, MarvelLocation loc)
+    // {
 
-    public bool SkillSentinel(GameController game)
+    //     if (game.GetLocationCards(loc, player).Contains())
+    //     return true;
+    // }
+
+    public bool SkillSentinel(GameController game, IPlayer player)
     {
+        var sentinelCard = game.GetAllCards().Find(x => x.GetCardName() == "Sentinel");
+        game.GenerateCard(player, sentinelCard);
         return true;
     }
 

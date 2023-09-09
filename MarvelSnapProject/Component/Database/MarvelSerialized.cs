@@ -3,10 +3,10 @@ using System.Text;
 
 namespace MarvelSnapProject;
 public class MarvelSerialized{
-    DataContractJsonSerializer serCard = new DataContractJsonSerializer(typeof(List<MarvelCard>));
-    DataContractJsonSerializer serLoc = new DataContractJsonSerializer(typeof(List<MarvelLocation>));
+    DataContractJsonSerializer _serCard = new DataContractJsonSerializer(typeof(List<MarvelCard>));
+    DataContractJsonSerializer _serLoc = new DataContractJsonSerializer(typeof(List<MarvelLocation>));
 
-    public void SerialCard(){
+    public bool SerialCard(){
         List<MarvelCard> cards = new List<MarvelCard>();
         cards.Add(new("Hawkeye", 1, 1, CardType.OnReveal, CardSkill.Hawkeye));
         cards.Add(new("Misty Knight", 1, 2, CardType.Normal, CardSkill.MistyKnight));
@@ -28,12 +28,13 @@ public class MarvelSerialized{
         FileStream streamCard = new FileStream("cards.json", FileMode.Create);
         using (var writerCard = JsonReaderWriterFactory.CreateJsonWriter(streamCard, Encoding.UTF8, true, true, "   "))
         {
-            serCard.WriteObject(writerCard, cards);
-
+            _serCard.WriteObject(writerCard, cards);
         }
+
+        return true;
     }
 
-    public void SerialLocation(){
+    public bool SerialLocation(){
         List<MarvelLocation> locations = new List<MarvelLocation>{
             new("Necrosha", LocationSkill.Necrosha),
             new("Central Park", LocationSkill.CentralPark),
@@ -48,16 +49,18 @@ public class MarvelSerialized{
         FileStream streamLoc = new FileStream("locations.json", FileMode.Create);
         using (var writerLoc = JsonReaderWriterFactory.CreateJsonWriter(streamLoc, Encoding.UTF8, true, true, "   "))
         {
-            serLoc.WriteObject(writerLoc, locations);
+            _serLoc.WriteObject(writerLoc, locations);
 
         }
+
+        return true;
     }
 
     public List<MarvelCard> ImportCards(){
         List<MarvelCard> importCards;
         using (FileStream streamCard2 = new FileStream(@".\Component\Database\cards.json", FileMode.OpenOrCreate))
         {
-            importCards = (List<MarvelCard>)serCard.ReadObject(streamCard2);
+            importCards = (List<MarvelCard>)_serCard.ReadObject(streamCard2);
         }
         return importCards;
     }
@@ -66,7 +69,7 @@ public class MarvelSerialized{
         List<MarvelLocation> importLocations;
         using (FileStream streamLoc2 = new FileStream(@".\Component\Database\locations.json", FileMode.OpenOrCreate))
         {
-            importLocations = (List<MarvelLocation>)serLoc.ReadObject(streamLoc2);
+            importLocations = (List<MarvelLocation>)_serLoc.ReadObject(streamLoc2);
         }
         return importLocations;
     }

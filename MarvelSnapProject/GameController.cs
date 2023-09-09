@@ -216,14 +216,39 @@ public class GameController
         foreach (int ind in listIndex)
         {
             MarvelCard card = deck[ind].Copy();
-            info.AddCard(card);
+
+
+            if (!GetPlayerCards(player).Contains(card))
+            {
+
+                List<MarvelCard> placeCard = new();
+                foreach (var loc in _randomLoc)
+                {
+                    placeCard.Concat(GetLocationCards(loc, player)).ToList();
+                }
+                if (!placeCard.Contains(card))
+                {
+                    info.AddCard(card);
+                    return true;
+                }
+                return false;
+            }
+            return false;
+
         }
-        return true;
+        return false;
 
 
         // int randomIndex = random.Next(0, deck.Count);
         // MarvelCard card = deck[randomIndex].Copy();
         // return true;
+    }
+
+    public bool GenerateCard(IPlayer player, MarvelCard card)
+    {
+        PlayerInfo info = _playersInfo[player];
+        info.AddCard(card);
+        return true;
     }
 
     public List<MarvelCard> GetPlayerCards(IPlayer player)
@@ -303,7 +328,7 @@ public class GameController
     public Dictionary<MarvelLocation, IPlayer> GetLocationWinner()
     {
         Dictionary<MarvelLocation, IPlayer> locWinner = new();
-        foreach(var kvp in _locationsInfo)
+        foreach (var kvp in _locationsInfo)
         {
 
             IPlayer winner = _locationsInfo[kvp.Key].GetLocWinner();
@@ -317,10 +342,10 @@ public class GameController
         return _locationsInfo[loc].GetLocWinner();
     }
 
-    public Dictionary<IPlayer,int> GetTotalScore()
+    public Dictionary<IPlayer, int> GetTotalScore()
     {
-        Dictionary<IPlayer,int> totalScore = new();
-        foreach(var kvpPlayer in _playersInfo)
+        Dictionary<IPlayer, int> totalScore = new();
+        foreach (var kvpPlayer in _playersInfo)
         {
             IPlayer player = kvpPlayer.Key;
             int playerScore = 0;
@@ -357,7 +382,7 @@ public class GameController
             IPlayer player = kvp.Key;
             PlayerInfo info = kvp.Value;
             int win = info.GetTotalWin();
-            totalWinPlayers.Add(player,win);
+            totalWinPlayers.Add(player, win);
         }
         return totalWinPlayers;
     }
@@ -376,14 +401,14 @@ public class GameController
                 higestWin = win;
                 winner = player.GetPlayerName();
             }
-            else if(win == higestWin)
+            else if (win == higestWin)
             {
-                if(GetTotalScore()[player] > higestTotalScore)
+                if (GetTotalScore()[player] > higestTotalScore)
                 {
                     higestTotalScore = GetTotalScore()[player];
                     winner = player.GetPlayerName();
                 }
-                else if(GetTotalScore()[player] == higestTotalScore)
+                else if (GetTotalScore()[player] == higestTotalScore)
                 {
                     winner = "DRAW";
                 }
@@ -395,7 +420,7 @@ public class GameController
 
     public bool SetLocationScore(MarvelLocation loc, IPlayer player, int score)
     {
-        
+
         return true;
     }
 
