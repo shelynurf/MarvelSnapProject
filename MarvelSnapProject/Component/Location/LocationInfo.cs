@@ -44,6 +44,12 @@ public class LocationInfo
         return true;
     }
 
+    public bool AddScore(IPlayer player, int add)
+    {
+        _scoreLoc[player] += add;
+        return true;
+    }
+
     public bool PlaceCard(IPlayer player, ICard card)
     {
         _cardsLoc[player].Add(card);

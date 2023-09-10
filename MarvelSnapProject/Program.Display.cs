@@ -74,7 +74,14 @@ public partial class Program
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("========GAMES DONE========");
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Congratulation {game.GetWinner()}!! You're The Winner! \n");
+        if (game.GetWinner() != "DRAW")
+        {
+            Console.WriteLine($"Congratulation {game.GetWinner()}!! You're The Winner! \n");
+        }
+        else {
+            Console.WriteLine($"Congratulation!! Both of you are tied \n");
+        }
+        
         Console.ResetColor();
         var locations = game.GetLocations();
         

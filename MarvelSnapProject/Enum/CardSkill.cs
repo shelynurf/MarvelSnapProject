@@ -2,22 +2,24 @@ namespace MarvelSnapProject;
 
 public enum CardSkill
 {
-Hawkeye,
-MistyKnight,
-Abomination,
-Cyclops,
-Hulk,
+// Hawkeye,
+// MistyKnight,
+// Abomination,
+// Cyclops,
+// Hulk,
+Default,
 IronMan,
 Medusa,
-Punisher,
-Quicksilver,
+// Punisher,
+// Quicksilver,
 Sentinel,
-Shocker,
-StarLord,
-TheThing,
+// Shocker,
+// StarLord,
+// TheThing,
 
-JessicaJones,
+// JessicaJones,
 AntMan,
-Squirrel,
+BlackPanther,
+// Squirrel,
 
 }

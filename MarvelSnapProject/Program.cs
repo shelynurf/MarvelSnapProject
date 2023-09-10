@@ -80,7 +80,7 @@ public partial class Program
         game.GetAllLocations();
         game.GenerateLocation();
         List<int> deck1 = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-        List<int> deck2 = new List<int>() { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+        List<int> deck2 = new List<int>() { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
         while (game.GetGameStatus() == GameStatus.Running)
         {
             var deckPlayer1 = game.SetPlayerDeck(player1, deck1);
@@ -146,6 +146,7 @@ public partial class Program
                                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                                 Console.Write("Input Location index to place the card (0 to pass turn): ");
                                 markerLoc = int.TryParse(Console.ReadLine(), out locIndex);
+                                // isLocFull = game.IsCardFullInLocation(player, locIndex);
 
                                 // try {
                                 //     isLocFull = game.IsCardFullInLocation(player, locIndex);
@@ -158,11 +159,11 @@ public partial class Program
                                 
                                 if (!markerLoc)
                                 {
-                                    if (locIndex == 0)
-                                    {
-                                        endTurn = true;
-                                        break;
-                                    }
+                                    // if (locIndex == 0)
+                                    // {
+                                    //     endTurn = true;
+                                    //     break;
+                                    // }
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("Make sure the index entered is a number");
                                     // markerLoc = false;
@@ -173,7 +174,7 @@ public partial class Program
                                     Console.WriteLine("Index not available!");
                                     markerLoc = false;
                                 }
-                                else if(!game.IsCardFullInLocation(player, locIndex))
+                                else if(game.IsCardFullInLocation(player, locIndex))
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("Location is Full");
@@ -199,7 +200,7 @@ public partial class Program
                         } 
                     }
 
-                    // game.ApplyOnGoingLocs();
+                    game.ApplyOnGoingLocs();
 
                     if (endTurn)
                     {

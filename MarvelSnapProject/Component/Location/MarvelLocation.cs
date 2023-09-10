@@ -7,7 +7,7 @@ public class MarvelLocation : Ilocation
 {
     [DataMember] private string _locationName;
     // private Dictionary<LocPos, List<CardAbstract>> _posCard = new();
-    private Dictionary<LocPos, int> _locEnergy = new();
+    // private Dictionary<LocPos, int> _locEnergy = new();
     private bool _isFull;
     [DataMember] private LocationSkill _locSkill;
     [DataMember] private string _locDescription;
@@ -30,6 +30,11 @@ public class MarvelLocation : Ilocation
     {
         return _locDescription;
     }
+
+    public LocationSkill GetSkill()
+    {
+        return _locSkill;
+    }
     // public bool AddCard(PlayerInfo playerInfo, ICard card, LocPos locPos){
     //     return true;
     // }
@@ -44,6 +49,11 @@ public class MarvelLocation : Ilocation
     // }
     public bool SetIsOpened(bool isOpened){
         _isOpened = isOpened;
+        return _isOpened;
+    }
+
+    public bool CheckIsOpened()
+    {
         return _isOpened;
     }
 

@@ -2,6 +2,7 @@ using System.Runtime.Serialization;
 
 namespace MarvelSnapProject;
 
+public delegate bool ActionDelegate(GameController game, IPlayer player, MarvelLocation loc);
 [DataContract]
 public class MarvelCard : ICard
 {
@@ -11,6 +12,8 @@ public class MarvelCard : ICard
     [DataMember] private CardType _cardType;
     [DataMember] private CardSkill _cardSkill;
     [DataMember] private string _cardDescription = "";
+    private ActionDelegate _action; 
+    private bool _isAffected = false;
 
 
     public MarvelCard(string name, int cost, int power, CardType type, CardSkill skill){
@@ -53,8 +56,24 @@ public class MarvelCard : ICard
         return _cardType;
     }
 
+    public CardSkill GetCardSkill()
+    {
+        return _cardSkill;
+    }
+
     public string? GetCardDescription(){
         return _cardDescription;
+    }
+
+    public bool IsAffected()
+    {
+        return _isAffected;
+    }
+
+    public bool SetAffected(bool state)
+    {
+        _isAffected = state;
+        return true;
     }
 
     public MarvelCard Copy(){
@@ -63,9 +82,10 @@ public class MarvelCard : ICard
         return copy;
     }
 
-    // public bool Action(Delegate action)
-    // {
-    //     delegate.Invoke();
-    //     return true;
-    // }
+    public bool Action(ActionDelegate action, GameController game, IPlayer player, MarvelLocation loc)
+    {
+        _action = action;
+        _action.Invoke(game, player, loc);
+        return true;
+    }
 }

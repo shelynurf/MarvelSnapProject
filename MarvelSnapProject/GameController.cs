@@ -1,3 +1,6 @@
+
+using System.Linq;
+
 namespace MarvelSnapProject;
 
 public class GameController
@@ -13,6 +16,7 @@ public class GameController
     private List<MarvelLocation> _allLocations = new();
     private Random _random = new Random();
     private List<MarvelLocation> _randomLoc = new();
+    private Dictionary<CardSkill, ActionDelegate> _skillCards = new();
 
     private string _winner;
 
@@ -60,8 +64,13 @@ public class GameController
     /// <returns>true if success</returns>
     public bool RemovePlayer(IPlayer player)
     {
-        _playersInfo.Remove(player);
-        return true;
+        if (_playersInfo.ContainsKey(player))
+        {
+            _playersInfo.Remove(player);
+            return true;
+        }
+        return false;
+
     }
 
 
@@ -216,27 +225,75 @@ public class GameController
         foreach (int ind in listIndex)
         {
             MarvelCard card = deck[ind].Copy();
+            info.AddCard(card);
+            CardSkill skill = card.GetCardSkill();
+            // ActionDelegate skilIronMan = SkillCards.SkillIronMan;\
+            ActionDelegate action;
+            ActionDelegate skillSentinel = SkillCards.SkillSentinel;
+            ActionDelegate skillIronMan = SkillCards.SkillIronMan;
+            ActionDelegate skillMedusa = SkillCards.SkillMedusa;
+            ActionDelegate skillBlackPanther = SkillCards.SkillBlackPanther;
+            ActionDelegate skillDefault = SkillCards.SkillDefault;
 
 
-            if (!GetPlayerCards(player).Contains(card))
+            //     switch (skill) {
+            //     case CardSkill.Sentinel:
+            //         card.Action(skillSentinel, this, player);
+            //         break;
+            //     default:
+            //         card.Action(skillDefault, this, player);
+            //         break;
+            // }
+
+            switch (skill)
             {
-
-                List<MarvelCard> placeCard = new();
-                foreach (var loc in _randomLoc)
-                {
-                    placeCard.Concat(GetLocationCards(loc, player)).ToList();
-                }
-                if (!placeCard.Contains(card))
-                {
-                    info.AddCard(card);
-                    return true;
-                }
-                return false;
+                case CardSkill.IronMan:
+                    action = skillIronMan;
+                    break;
+                case CardSkill.Sentinel:
+                    action = skillSentinel;
+                    break;
+                case CardSkill.Medusa:
+                    action = skillMedusa;
+                    break;
+                case CardSkill.BlackPanther:
+                    action = skillBlackPanther;
+                    break;
+                case CardSkill.Default:
+                    action = skillDefault;
+                    break;
+                default:
+                    action = skillDefault;
+                    break;
             }
-            return false;
+
+            if (!_skillCards.ContainsKey(skill))
+            {
+                _skillCards.Add(skill, action);
+            }
+
+
+
+            // if (!GetPlayerCards(player).Contains(card))
+            // {
+
+            //     List<MarvelCard> placeCard = new();
+            //     foreach (var loc in _randomLoc)
+            //     {
+            //         placeCard.Concat(GetLocationCards(loc, player)).ToList();
+            //     }
+            //     if (!placeCard.Contains(card))
+            //     {
+            //         info.AddCard(card);
+            //         return true;
+            //     }
+            //     // return false;
+            // }
+            // return false;
 
         }
-        return false;
+        // return false;
+        return true;
 
 
         // int randomIndex = random.Next(0, deck.Count);
@@ -316,6 +373,24 @@ public class GameController
     {
         return _locationsInfo[loc].GetCardsOnLoc(player);
     }
+
+    public MarvelLocation CheckCardLocation(IPlayer player, ICard card)
+    {
+        // MarvelLocation loc = null;
+
+        // foreach (var kvp in _locationsInfo)
+        // {
+        //     if (kvp.Value.GetCardsOnLoc(player).Contains(card))
+        //     {
+        //         loc = kvp.Key;
+        //         break;
+        //     }
+        // }
+
+        MarvelLocation loc = _locationsInfo.FirstOrDefault(x => x.Value.GetCardsOnLoc(player).Contains(card)).Key;
+
+        return loc;
+    }
     public Dictionary<IPlayer, int> GetLocationScore(MarvelLocation loc)
     {
         return _locationsInfo[loc].GetLocScore();
@@ -323,6 +398,12 @@ public class GameController
     public int GetLocationScore(MarvelLocation loc, IPlayer player)
     {
         return _locationsInfo[loc].GetLocScore(player);
+    }
+
+    public bool ApplyOnGoingLocs()
+    {
+        SkillLocation.OnGoingLocs(this);
+        return true;
     }
 
     public Dictionary<MarvelLocation, IPlayer> GetLocationWinner()
@@ -476,6 +557,7 @@ public class GameController
     public bool PlaceCard(IPlayer player, int cardIndex, int locIndex)
     {
         MarvelCard selectedCard = GetPlayerCards(player)[cardIndex - 1];
+        CardSkill skill = selectedCard.GetCardSkill();
         MarvelLocation selectedLoc = OpenedLocation()[locIndex - 1];
         LocationInfo locInfo = _locationsInfo[selectedLoc];
         PlayerInfo info = _playersInfo[player];
@@ -485,6 +567,7 @@ public class GameController
         info.PopCardFromDeck(selectedCard);
         info.RemoveCard(selectedCard);
         info.SetEnergy(currentEnergy - selectedCard.GetCardCost());
+        selectedCard.Action(_skillCards[skill], this, player, selectedLoc);
         return true;
     }
 
@@ -532,17 +615,22 @@ public class GameController
 
     public bool IsCardFullInLocation(IPlayer player, int locIndex)
     {
-        MarvelLocation selectedLoc = _randomLoc[locIndex - 1];
+        int maxCardOnLoc = 4;
+
         if (locIndex < 1 || locIndex > _randomLoc.Count)
         {
             return false;
         }
-
-        if (_locationsInfo[selectedLoc].GetCardsOnLoc(player).Count > 3)
+        MarvelLocation selectedLoc = _randomLoc[locIndex - 1];
+        if (_locationsInfo[selectedLoc].GetCardsOnLoc(player).Count == maxCardOnLoc)
+        {
+            return true;
+        }
+        else
         {
             return false;
         }
-        return true;
+
     }
 
     // public IPlayer GetWinner(Ilocation location)

@@ -1,18 +1,11 @@
 [
-   {
-      "_cardCost": 1,
-      "_cardDescription": "OnReveal : If you play a card here next turn, +3 Power.",
-      "_cardName": "Hawkeye",
-      "_cardPower": 1,
-      "_cardSkill": 0,
-      "_cardType": 1
-   },
+   
    {
       "_cardCost": 1,
       "_cardDescription": "We've got to save this city.",
       "_cardName": "Misty Knight",
       "_cardPower": 2,
-      "_cardSkill": 1,
+      "_cardSkill": 0,
       "_cardType": 0
    },
    {
@@ -20,7 +13,7 @@
       "_cardDescription": "Foolish rabble! You are beneath me!",
       "_cardName": "Abomination",
       "_cardPower": 9,
-      "_cardSkill": 2,
+      "_cardSkill": 0,
       "_cardType": 0
    },
    {
@@ -28,7 +21,7 @@
       "_cardDescription": "Lets move, X-Men.",
       "_cardName": "Cyclops",
       "_cardPower": 4,
-      "_cardSkill": 3,
+      "_cardSkill": 0,
       "_cardType": 0
    },
    {
@@ -36,15 +29,15 @@
       "_cardDescription": "HULK SMASH!",
       "_cardName": "Hulk  ",
       "_cardPower": 12,
-      "_cardSkill": 4,
+      "_cardSkill": 0,
       "_cardType": 0
    },
    {
       "_cardCost": 5,
-      "_cardDescription": "OnGoing : Your total Power is doubled at this location.",
+      "_cardDescription": "Default",
       "_cardName": "Iron Man",
       "_cardPower": 0,
-      "_cardSkill": 5,
+      "_cardSkill": 1,
       "_cardType": 2
    },
    {
@@ -52,23 +45,15 @@
       "_cardDescription": "OnReveal : If this is at the middle location, +3 Power.",
       "_cardName": "Medusa",
       "_cardPower": 2,
-      "_cardSkill": 6,
+      "_cardSkill": 2,
       "_cardType": 1
-   },
-   {
-      "_cardCost": 3,
-      "_cardDescription": "OnGoing : +1 Power for each opposing card at this location.",
-      "_cardName": "Punisher",
-      "_cardPower": 2,
-      "_cardSkill": 7,
-      "_cardType": 2
    },
    {
       "_cardCost": 1,
       "_cardDescription": "Starts in your opening hand.",
       "_cardName": "Quicksilver",
       "_cardPower": 2,
-      "_cardSkill": 8,
+      "_cardSkill": 0,
       "_cardType": 0
    },
    {
@@ -76,7 +61,7 @@
       "_cardDescription": "OnReveal : Add another Sentinel to your hand.",
       "_cardName": "Sentinel",
       "_cardPower": 3,
-      "_cardSkill": 9,
+      "_cardSkill": 3,
       "_cardType": 1
    },
    {
@@ -84,39 +69,23 @@
       "_cardDescription": "Im gonna blast you!",
       "_cardName": "Shocker",
       "_cardPower": 3,
-      "_cardSkill": 10,
+      "_cardSkill": 0,
       "_cardType": 0
-   },
-   {
-      "_cardCost": 2,
-      "_cardDescription": "OnReveal : If your opponent played a card here this turn, +3 Power.",
-      "_cardName": "Star-Lord",
-      "_cardPower": 2,
-      "_cardSkill": 11,
-      "_cardType": 1
    },
    {
       "_cardCost": 4,
       "_cardDescription": "It's clobberin time!",
       "_cardName": "The Thing",
       "_cardPower": 6,
-      "_cardSkill": 12,
+      "_cardSkill": 0,
       "_cardType": 0
-   },
-   {
-      "_cardCost": 4,
-      "_cardDescription": "OnReveal : If you dont play a card here next turn, +4 Power.",
-      "_cardName": "Jessica Jones",
-      "_cardPower": 4,
-      "_cardSkill": 13,
-      "_cardType": 1
    },
    {
       "_cardCost": 1,
       "_cardDescription": "OnGoing : If you have 3 other cards here, +3 Power.",
       "_cardName": "Ant Man",
       "_cardPower": 1,
-      "_cardSkill": 14,
+      "_cardSkill": 4,
       "_cardType": 2
    },
    {
@@ -124,7 +93,31 @@
       "_cardDescription": "squeak!",
       "_cardName": "Squirrel",
       "_cardPower": 1,
-      "_cardSkill": 15,
+      "_cardSkill": 0,
       "_cardType": 0
+   },
+   {
+      "_cardCost": 1,
+      "_cardDescription": "zzzzzzZZZTT!",
+      "_cardName": "Drone ",
+      "_cardPower": 1,
+      "_cardSkill": 0,
+      "_cardType": 0
+   },
+   {
+      "_cardCost": 1,
+      "_cardDescription": "I serve the Hand.",
+      "_cardName": "Ninja ",
+      "_cardPower": 2,
+      "_cardSkill": 0,
+      "_cardType": 0
+   },
+   {
+      "_cardCost": 5,
+      "_cardDescription": "On Reveal: Double this card's Power.",
+      "_cardName": "Black Panther",
+      "_cardPower": 4,
+      "_cardSkill": 5,
+      "_cardType": 1
    }
 ]
