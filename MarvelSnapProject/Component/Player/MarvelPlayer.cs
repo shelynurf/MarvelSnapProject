@@ -3,7 +3,7 @@ namespace MarvelSnapProject;
 public class MarvelPlayer : IPlayer{
     private string _playerName;
     private int _playerID;
-    private PlayerStatus _playerStatus;
+    
 
     public MarvelPlayer(string playerName, int playerID){
         _playerName = playerName;
@@ -25,13 +25,13 @@ public class MarvelPlayer : IPlayer{
         return true;
     }
 
-    public PlayerStatus GetPlayerStatus(){
-        return _playerStatus;
-    }
+    // public PlayerStatus GetPlayerStatus(){
+    //     return _playerStatus;
+    // }
 
-    public bool SetPlayerStatus(PlayerStatus status)
-    {
-        _playerStatus = status;
-        return true;
-    }
+    // public bool SetPlayerStatus(PlayerStatus status)
+    // {
+    //     _playerStatus = status;
+    //     return true;
+    // }
 }

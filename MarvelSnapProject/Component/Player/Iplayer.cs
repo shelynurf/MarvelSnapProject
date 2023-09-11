@@ -24,7 +24,7 @@ public interface IPlayer{
     /// <param name="id">Current player's ID</param>
     /// <returns>True if success</returns>
     public bool SetPlayerID(int id);
-    public PlayerStatus GetPlayerStatus();
+    // public PlayerStatus GetPlayerStatus();
 
-    public bool SetPlayerStatus(PlayerStatus status);
+    // public bool SetPlayerStatus(PlayerStatus status);
 }

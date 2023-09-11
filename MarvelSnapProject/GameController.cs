@@ -9,7 +9,7 @@ public class GameController
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
     private Dictionary<MarvelLocation, LocationInfo> _locationsInfo = new();
     private List<Ilocation> _locations = new();
-    private List<Ilocation> _cards = new();
+    // private List<Ilocation> _cards = new();
     private GameStatus _gameStatus = GameStatus.NotStarted;
     private MarvelSerialized _marvelSer = new MarvelSerialized();
     private List<MarvelCard> _allCards = new List<MarvelCard>();
@@ -499,11 +499,11 @@ public class GameController
     }
 
 
-    public bool SetLocationScore(MarvelLocation loc, IPlayer player, int score)
-    {
+    // public bool SetLocationScore(MarvelLocation loc, IPlayer player, int score)
+    // {
 
-        return true;
-    }
+    //     return true;
+    // }
 
     public List<MarvelLocation> OpenedLocation()
     {
@@ -571,42 +571,42 @@ public class GameController
         return true;
     }
 
-    public bool SetPlayerStatus(IPlayer player, PlayerStatus status)
-    {
-        return true;
-    }
+    // public bool SetPlayerStatus(IPlayer player, PlayerStatus status)
+    // {
+    //     return true;
+    // }
     // public PlayerStatus GetPlayerStatus(IPlayer player){
 
     // }
-    public bool AddNewLocation(Ilocation location)
-    {
-        return true;
-    }
+    // public bool AddNewLocation(Ilocation location)
+    // {
+    //     return true;
+    // }
     // public IEnumerable<Ilocation> ListAllLocation(){
 
     // }
-    public bool AddNewCard(ICard card)
-    {
-        return true;
-    }
-    public bool RemoveCard(ICard card)
-    {
-        return true;
-    }
+    // public bool AddNewCard(ICard card)
+    // {
+    //     return true;
+    // }
+    // public bool RemoveCard(ICard card)
+    // {
+    //     return true;
+    // }
     // public string GetCardInfo(ICard card){
 
     // }
     // public IEnumerable<string> ListAllCard(){
 
     // }
-    public bool AddNewCardToPlayer(IPlayer player, ICard card)
-    {
-        return true;
-    }
-    public bool PopCardFromPlayer(IPlayer player, ICard card)
-    {
-        return true;
-    }
+    // public bool AddNewCardToPlayer(IPlayer player, ICard card)
+    // {
+    //     return true;
+    // }
+    // public bool PopCardFromPlayer(IPlayer player, ICard card)
+    // {
+    //     return true;
+    // }
 
     // public MarvelLocation ConvertIndexToLoc(int locIndex)
     // {

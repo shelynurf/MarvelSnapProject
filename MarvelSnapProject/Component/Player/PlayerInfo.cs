@@ -12,6 +12,7 @@ public class PlayerInfo
 
 	private int _maxDeck = 12;
 	private int _totalWin;
+	private PlayerStatus _playerStatus;
 
 
 	public PlayerInfo(){
@@ -114,6 +115,16 @@ public class PlayerInfo
 	{
 		return _totalWin;
 	}
+
+	public PlayerStatus GetPlayerStatus(){
+        return _playerStatus;
+    }
+
+    public bool SetPlayerStatus(PlayerStatus status)
+    {
+        _playerStatus = status;
+        return true;
+    }
 
 
 	// public int GetLocScore(Ilocation location)
