@@ -230,7 +230,7 @@ public class GameController
             // ActionDelegate skilIronMan = SkillCards.SkillIronMan;\
             ActionDelegate action;
             ActionDelegate skillSentinel = SkillCards.SkillSentinel;
-            ActionDelegate skillIronMan = SkillCards.SkillIronMan;
+            // ActionDelegate skillIronMan = SkillCards.SkillIronMan;
             ActionDelegate skillMedusa = SkillCards.SkillMedusa;
             ActionDelegate skillBlackPanther = SkillCards.SkillBlackPanther;
             ActionDelegate skillDefault = SkillCards.SkillDefault;
@@ -247,9 +247,9 @@ public class GameController
 
             switch (skill)
             {
-                case CardSkill.IronMan:
-                    action = skillIronMan;
-                    break;
+                // case CardSkill.IronMan:
+                //     action = skillIronMan;
+                //     break;
                 case CardSkill.Sentinel:
                     action = skillSentinel;
                     break;

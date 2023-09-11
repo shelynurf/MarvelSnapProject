@@ -7,8 +7,8 @@ public class PlayerInfo
 	// private LocPos _playerPos;
 
 	private int _energy;
-	private Dictionary<MarvelLocation, int> _locScore;
-	private Dictionary<MarvelLocation, PlayerStatus> _playerStatus;
+	// private Dictionary<MarvelLocation, int> _locScore;
+	// private Dictionary<MarvelLocation, PlayerStatus> _playerStatus;
 
 	private int _maxDeck = 12;
 	private int _totalWin;

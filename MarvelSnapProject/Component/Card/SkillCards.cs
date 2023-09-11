@@ -6,15 +6,16 @@ public class SkillCards
     {
         return true;
     }
-    public static bool SkillIronMan(GameController game, IPlayer player, MarvelLocation loc)
-    {
-        // MarvelCard? ironManCard = game.GetAllCards().Find(x => x.GetCardName() == "Iron Man");
-        // Dictionary<MarvelLocation, LocationInfo> locsInfo = game.GetLocationInfo();
-        // MarvelLocation loc = game.CheckCardLocation(player, ironManCard);
-        int score = game.GetLocationScore(loc, player);
-        score = score * 2;
-        return true;
-    }
+    // public static bool SkillIronMan(GameController game, IPlayer player, MarvelLocation loc)
+    // {
+    //     // MarvelCard? ironManCard = game.GetAllCards().Find(x => x.GetCardName() == "Iron Man");
+    //     // Dictionary<MarvelLocation, LocationInfo> locsInfo = game.GetLocationInfo();
+    //     // MarvelLocation loc = game.CheckCardLocation(player, ironManCard);
+
+    //     int score = game.GetLocationScore(loc, player);
+    //     score = score * 2;
+    //     return true;
+    // }
 
     public static bool SkillMedusa(GameController game, IPlayer player, MarvelLocation loc)
     {
