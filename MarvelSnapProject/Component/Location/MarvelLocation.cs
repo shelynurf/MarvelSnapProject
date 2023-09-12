@@ -12,6 +12,8 @@ public class MarvelLocation : Ilocation
     [DataMember] private LocationSkill _locSkill;
     [DataMember] private string _locDescription;
     private bool _isOpened = false;
+    private ActionDelegate _action;
+    
 
     public MarvelLocation(string name, LocationSkill skill){
         _locationName = name;
@@ -55,6 +57,13 @@ public class MarvelLocation : Ilocation
     public bool CheckIsOpened()
     {
         return _isOpened;
+    }
+
+    public bool Action(ActionDelegate action, GameController game, IPlayer player, MarvelLocation loc)
+    {
+        _action = action;
+        _action.Invoke(game, player, loc);
+        return true;
     }
 
 }

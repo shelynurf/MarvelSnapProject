@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj": {}
+    "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj": {
+    "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj",
+        "projectUniqueName": "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj",
         "projectName": "MarvelSnapProject",
-        "projectPath": "C:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj",
+        "projectPath": "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj",
         "packagesPath": "C:\\Users\\Batch 4\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\obj\\",
+        "outputPath": "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Batch 4\\AppData\\Roaming\\NuGet\\NuGet.Config"
