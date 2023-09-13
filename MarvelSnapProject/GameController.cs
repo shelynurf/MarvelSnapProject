@@ -6,10 +6,11 @@ namespace MarvelSnapProject;
 public class GameController
 {
     private int _round = 0;
+    private List<int> _rounds = new();
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
     private Dictionary<MarvelLocation, LocationInfo> _locationsInfo = new();
     private List<Ilocation> _locations = new();
-    // private List<Ilocation> _cards = new();
+    private List<ICard> _cards = new();
     private GameStatus _gameStatus = GameStatus.NotStarted;
     private MarvelSerialized _marvelSer = new MarvelSerialized();
     private List<MarvelCard> _allCards = new List<MarvelCard>();
@@ -98,6 +99,11 @@ public class GameController
         return _round;
     }
 
+    public List<int> GetRounds()
+    {
+        return _rounds;
+    }
+
     /// <summary>
     /// Get status of the remaining game, are it not started, ongoing, or finished.
     /// </summary>
@@ -117,6 +123,9 @@ public class GameController
         {
             _gameStatus = GameStatus.Running;
             _round += 1;
+            _rounds.Add(_round);
+
+
         }
         else if (_gameStatus == GameStatus.Running)
         {
@@ -127,6 +136,7 @@ public class GameController
             else
             {
                 _round += 1;
+                _rounds.Add(_round);
             }
         }
 
@@ -248,8 +258,8 @@ public class GameController
             switch (skill)
             {
                 // case CardSkill.IronMan:
-                //     action = skillIronMan;
-                //     break;
+                    // action = skillIronMan;
+                    // break;
                 case CardSkill.Sentinel:
                     action = skillSentinel;
                     break;

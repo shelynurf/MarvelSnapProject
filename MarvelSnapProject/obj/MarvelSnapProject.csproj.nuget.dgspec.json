@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj": {}
+    "D:\\Bootcamp FMLX\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj": {
+    "D:\\Bootcamp FMLX\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj",
+        "projectUniqueName": "D:\\Bootcamp FMLX\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject.csproj",
         "projectName": "MarvelSnapProject",
-        "projectPath": "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj",
-        "packagesPath": "C:\\Users\\Batch 4\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\obj\\",
+        "projectPath": "D:\\Bootcamp FMLX\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject.csproj",
+        "packagesPath": "C:\\Users\\LOENA\\.nuget\\packages\\",
+        "outputPath": "D:\\Bootcamp FMLX\\MarvelSnap\\MarvelSnapProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Batch 4\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\LOENA\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

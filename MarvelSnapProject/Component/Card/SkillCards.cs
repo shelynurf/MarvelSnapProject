@@ -8,13 +8,21 @@ public class SkillCards
     }
     // public static bool SkillIronMan(GameController game, IPlayer player, MarvelLocation loc)
     // {
-    //     // MarvelCard? ironManCard = game.GetAllCards().Find(x => x.GetCardName() == "Iron Man");
-    //     // Dictionary<MarvelLocation, LocationInfo> locsInfo = game.GetLocationInfo();
-    //     // MarvelLocation loc = game.CheckCardLocation(player, ironManCard);
+        // MarvelCard? ironManCard = game.GetAllCards().Find(x => x.GetCardName() == "Iron Man");
+        // Dictionary<MarvelLocation, LocationInfo> locsInfo = game.GetLocationInfo();
+        // MarvelLocation loc = game.CheckCardLocation(player, ironManCard);
 
-    //     int score = game.GetLocationScore(loc, player);
-    //     score = score * 2;
-    //     return true;
+        // foreach (int round in rounds)
+        // {
+        //     int score = game.GetLocationScore(loc, player);
+        //     score = score * 2;
+        //     return true;
+        // }
+        // return false;
+
+        // int score = game.GetLocationScore(loc, player);
+        // score = score * 2;
+        // return true;
     // }
 
     public static bool SkillMedusa(GameController game, IPlayer player, MarvelLocation loc)
@@ -22,7 +30,7 @@ public class SkillCards
         // MarvelCard? medusaCard = game.GetAllCards().Find(x => x.GetCardName() == "Medusa");
         Dictionary<MarvelLocation, LocationInfo> locsInfo = game.GetLocationInfo();
         // MarvelLocation loc = game.CheckCardLocation(player, medusaCard);
-        
+
         if (loc == game.OpenedLocation()[1])
         {
             locsInfo[loc].AddScore(player, 3);
@@ -51,8 +59,8 @@ public class SkillCards
         return true;
     }
 
-    // public bool SkillAntman(GameController game)
-    // {
-    //     return true;
-    // }
+    public bool SkillAntman(GameController game, IPlayer player, MarvelLocation loc)
+    {
+        return true;
+    }
 }
