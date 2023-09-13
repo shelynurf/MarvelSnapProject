@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 namespace MarvelSnapProject;
 
 [DataContract]
-public class MarvelLocation : Ilocation
+public class MarvelLocation : ILocation
 {
     [DataMember] private string _locationName;
     // private Dictionary<LocPos, List<CardAbstract>> _posCard = new();

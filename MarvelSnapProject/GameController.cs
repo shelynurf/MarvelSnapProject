@@ -12,7 +12,7 @@ public class GameController
     private List<int> _rounds = new();
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
     private Dictionary<MarvelLocation, LocationInfo> _locationsInfo = new();
-    private List<Ilocation> _locations = new();
+    private List<ILocation> _locations = new();
     private List<ICard> _cards = new();
     private GameStatus _gameStatus = GameStatus.NotStarted;
     private MarvelSerialized _marvelSer = new MarvelSerialized();
@@ -33,7 +33,7 @@ public class GameController
     /// <returns>True if success</returns>
     public bool AddNewPlayer(IPlayer player)
     {
-        if (_playersInfo.Count < 2)
+        if (! (_playersInfo.Count > 2))
         {
             if (!_playersInfo.ContainsKey(player))
             {
@@ -54,6 +54,7 @@ public class GameController
         }
         else logger.Warn("Failed Add Player more than 2");
         return false;
+
     }
     // public bool AddNewPlayer(IPlayer player)
     // {
@@ -594,11 +595,11 @@ public class GameController
     // public PlayerStatus GetPlayerStatus(IPlayer player){
 
     // }
-    // public bool AddNewLocation(Ilocation location)
+    // public bool AddNewLocation(ILocation location)
     // {
     //     return true;
     // }
-    // public IEnumerable<Ilocation> ListAllLocation(){
+    // public IEnumerable<ILocation> ListAllLocation(){
 
     // }
     // public bool AddNewCard(ICard card)
@@ -649,7 +650,7 @@ public class GameController
 
     }
 
-    // public IPlayer GetWinner(Ilocation location)
+    // public IPlayer GetWinner(ILocation location)
     // {
 
     // }
@@ -665,7 +666,7 @@ public class GameController
     // }
 };
 
-// public bool AddNewCardToLocation(Ilocation location, IPlayer player, ICard card)
+// public bool AddNewCardToLocation(ILocation location, IPlayer player, ICard card)
 // {
 //     return true;
 // }
