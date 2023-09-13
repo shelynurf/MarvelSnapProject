@@ -1,10 +1,13 @@
 
 using System.Linq;
+using NLog;
+
 
 namespace MarvelSnapProject;
 
 public class GameController
 {
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     private int _round = 0;
     private List<int> _rounds = new();
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
@@ -39,14 +42,17 @@ public class GameController
 
                     if (regPlayer.GetPlayerName() == player.GetPlayerName() || regPlayer.GetPlayerID() == player.GetPlayerID())
                     {
+                        logger.Warn("Failed Add Player because player already registered");
                         return false;
                     }
                 }
                 PlayerInfo playerInfo = new();
                 _playersInfo.Add(player, playerInfo);
+                logger.Info("Success Add Player");
                 return true;
             }
         }
+        else logger.Warn("Failed Add Player more than 2");
         return false;
     }
     // public bool AddNewPlayer(IPlayer player)

@@ -28,3 +28,5 @@ C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelS
 C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.pdb
 C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.genruntimeconfig.cache
 C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\ref\MarvelSnapProject.dll
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\bin\Debug\net7.0\NLog.dll
+C:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\obj\Debug\net7.0\MarvelSnapProject.csproj.CopyComplete

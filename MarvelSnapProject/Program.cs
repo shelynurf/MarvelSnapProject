@@ -2,12 +2,19 @@
 using MarvelSnapProject;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using NLog;
 
 public partial class Program
 {
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
     public static void Main()
+
     {
+        // var currentDirectory = Directory.GetCurrentDirectory();
+        //     var nlogConfigPath = Path.Combine(currentDirectory, "nlog.config");
+		// 	LogManager.LoadConfiguration(nlogConfigPath);
+
         GameController game = new();
 
         Console.Clear();
@@ -156,7 +163,7 @@ public partial class Program
                                 //     Console.WriteLine(e.Message);
                                 // }
                                 // isLocFull = game.IsCardFullInLocation(player, locIndex);
-                                
+
                                 if (!markerLoc)
                                 {
                                     // if (locIndex == 0)
@@ -168,13 +175,13 @@ public partial class Program
                                     Console.WriteLine("Make sure the index entered is a number");
                                     // markerLoc = false;
                                 }
-                                else if(locIndex > game.OpenedLocation().Count)
+                                else if (locIndex > game.OpenedLocation().Count)
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("Index not available!");
                                     markerLoc = false;
                                 }
-                                else if(game.IsCardFullInLocation(player, locIndex))
+                                else if (game.IsCardFullInLocation(player, locIndex))
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("Location is Full");
@@ -197,7 +204,7 @@ public partial class Program
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("You don't have enough energy!");
-                        } 
+                        }
                     }
 
                     game.ApplyOnGoingLocs();
@@ -350,7 +357,7 @@ public partial class Program
         //     Console.WriteLine("\n");
         // }
 
-        
+
 
 
 
