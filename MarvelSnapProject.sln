@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarvelSnapProject", "MarvelSnapProject\MarvelSnapProject.csproj", "{355517DD-06A4-493F-975B-A245F117DF43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarvelSnapProject.Test", "MarvelSnapProject.Test\MarvelSnapProject.Test.csproj", "{79C51F34-6F0A-49CA-BC78-380E5D78698F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {146644E6-5E83-4ED1-93C1-5D7F5C098345}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{355517DD-06A4-493F-975B-A245F117DF43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{355517DD-06A4-493F-975B-A245F117DF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{355517DD-06A4-493F-975B-A245F117DF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{355517DD-06A4-493F-975B-A245F117DF43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C51F34-6F0A-49CA-BC78-380E5D78698F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C51F34-6F0A-49CA-BC78-380E5D78698F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C51F34-6F0A-49CA-BC78-380E5D78698F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C51F34-6F0A-49CA-BC78-380E5D78698F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
