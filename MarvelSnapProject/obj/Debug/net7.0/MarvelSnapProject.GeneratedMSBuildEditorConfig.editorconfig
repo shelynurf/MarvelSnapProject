@@ -8,4 +8,8 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MarvelSnapProject
+<<<<<<< HEAD
 build_property.ProjectDir = c:\Users\Batch 4\Documents\Bootcamp Batch 4\MarvelSnap\MarvelSnapProject\MarvelSnapProject\
+=======
+build_property.ProjectDir = d:\Bootcamp FMLX\MarvelSnap\MarvelSnapProject\
+>>>>>>> 87781a319303e13748a6dcc98bd6181916461751

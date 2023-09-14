@@ -20,7 +20,8 @@ public class GameController
     private List<MarvelLocation> _allLocations = new();
     private Random _random = new Random();
     private List<MarvelLocation> _randomLoc = new();
-    private Dictionary<CardSkill, ActionDelegate> _skillCards = new();
+    private Dictionary<CardSkill, OnRevealDelegate> _skillCards = new();
+    private Dictionary<LocationSkill, LocationDelegate> _skillLocations = new();
 
     private string _winner;
 
@@ -244,13 +245,13 @@ public class GameController
             MarvelCard card = deck[ind].Copy();
             info.AddCard(card);
             CardSkill skill = card.GetCardSkill();
-            // ActionDelegate skilIronMan = SkillCards.SkillIronMan;\
-            ActionDelegate action;
-            ActionDelegate skillSentinel = SkillCards.SkillSentinel;
-            // ActionDelegate skillIronMan = SkillCards.SkillIronMan;
-            ActionDelegate skillMedusa = SkillCards.SkillMedusa;
-            ActionDelegate skillBlackPanther = SkillCards.SkillBlackPanther;
-            ActionDelegate skillDefault = SkillCards.SkillDefault;
+            // OnRevealDelegate skilIronMan = SkillCards.SkillIronMan;\
+            OnRevealDelegate action;
+            OnRevealDelegate skillSentinel = SkillCards.SkillSentinel;
+            // OnRevealDelegate skillIronMan = SkillCards.SkillIronMan;
+            OnRevealDelegate skillMedusa = SkillCards.SkillMedusa;
+            OnRevealDelegate skillBlackPanther = SkillCards.SkillBlackPanther;
+            OnRevealDelegate skillDefault = SkillCards.SkillDefault;
 
 
             //     switch (skill) {
