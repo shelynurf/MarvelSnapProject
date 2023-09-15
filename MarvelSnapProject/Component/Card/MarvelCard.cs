@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 namespace MarvelSnapProject;
 
 public delegate bool OnRevealDelegate(GameController game, IPlayer player, MarvelLocation loc);
+public delegate bool OnGoingDelegate(GameController game);
 [DataContract]
 public class MarvelCard : ICard
 {
@@ -13,6 +14,7 @@ public class MarvelCard : ICard
     [DataMember] private CardSkill _cardSkill;
     [DataMember] private string _cardDescription = "";
     private OnRevealDelegate _onRevealAction; 
+    private OnGoingDelegate _onGoingAction;
     private bool _isAffected = false;
 
 
@@ -86,6 +88,12 @@ public class MarvelCard : ICard
     {
         _onRevealAction = action;
         _onRevealAction.Invoke(game, player, loc);
+        return true;
+    }
+    public bool Action(OnGoingDelegate action, GameController game)
+    {
+        _onGoingAction = action;
+        _onGoingAction.Invoke(game);
         return true;
     }
 }

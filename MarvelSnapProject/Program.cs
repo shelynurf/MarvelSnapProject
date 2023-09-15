@@ -112,6 +112,7 @@ public partial class Program
 
                     bool cardValid = false;
                     bool endTurn = false;
+                    // bool endTurn = game.GetEndTurn();
                     while (!cardValid)
                     {
                         bool marker;

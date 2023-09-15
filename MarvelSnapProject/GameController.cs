@@ -9,18 +9,20 @@ public class GameController
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     private int _round = 0;
-    private List<int> _rounds = new();
+    // private List<int> _rounds = new();
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
     private Dictionary<MarvelLocation, LocationInfo> _locationsInfo = new();
     private List<ILocation> _locations = new();
     private List<ICard> _cards = new();
+    // private bool _endTurn = false;
     private GameStatus _gameStatus = GameStatus.NotStarted;
     private MarvelSerialized _marvelSer = new MarvelSerialized();
     private List<MarvelCard> _allCards = new List<MarvelCard>();
     private List<MarvelLocation> _allLocations = new();
     private Random _random = new Random();
     private List<MarvelLocation> _randomLoc = new();
-    private Dictionary<CardSkill, OnRevealDelegate> _skillCards = new();
+    private Dictionary<CardSkill, OnRevealDelegate> _skillOnReveal = new();
+    private Dictionary<CardSkill, OnGoingDelegate> _skillOnGoing = new();
     private Dictionary<LocationSkill, LocationDelegate> _skillLocations = new();
 
     private string _winner;
@@ -98,6 +100,41 @@ public class GameController
         return players;
     }
 
+    // public bool GetEndTurn()
+    // {
+    //     return _endTurn;
+    // }
+
+    // public IPlayer GetCurrentPlayer()
+    // {
+    //     // List<IPlayer> players = ListAllPlayer().ToList();
+    //     List<IPlayer> players = _playersInfo.Keys.ToList();
+    //     IPlayer playersTurn = null;
+    //     foreach (var player in players)
+    //     {
+    //         int index = players.IndexOf(player);           
+    //         if (_endTurn == false)
+    //         {
+    //             playersTurn = player;
+    //         }
+    //         else 
+    //         {
+    //             if (index == 0)
+    //             {
+    //                 playersTurn = players[index + 1];
+    //             }
+    //             if (index ==1)
+    //             {
+    //                 playersTurn = players[index - 1];
+    //             }
+                
+    //         }
+
+    //     }
+    //     return playersTurn; 
+    // }
+
+
     /// <summary>
     /// Checking current round of game
     /// </summary>
@@ -107,10 +144,10 @@ public class GameController
         return _round;
     }
 
-    public List<int> GetRounds()
-    {
-        return _rounds;
-    }
+    // public List<int> GetRounds()
+    // {
+    //     return _rounds;
+    // }
 
     /// <summary>
     /// Get status of the remaining game, are it not started, ongoing, or finished.
@@ -131,7 +168,7 @@ public class GameController
         {
             _gameStatus = GameStatus.Running;
             _round += 1;
-            _rounds.Add(_round);
+            // _rounds.Add(_round);
 
 
         }
@@ -144,7 +181,7 @@ public class GameController
             else
             {
                 _round += 1;
-                _rounds.Add(_round);
+                // _rounds.Add(_round);
             }
         }
 
@@ -246,12 +283,13 @@ public class GameController
             info.AddCard(card);
             CardSkill skill = card.GetCardSkill();
             // OnRevealDelegate skilIronMan = SkillCards.SkillIronMan;\
-            OnRevealDelegate action;
-            OnRevealDelegate skillSentinel = SkillCards.SkillSentinel;
-            // OnRevealDelegate skillIronMan = SkillCards.SkillIronMan;
-            OnRevealDelegate skillMedusa = SkillCards.SkillMedusa;
-            OnRevealDelegate skillBlackPanther = SkillCards.SkillBlackPanther;
-            OnRevealDelegate skillDefault = SkillCards.SkillDefault;
+            OnRevealDelegate actionOnReveal = null;
+            OnGoingDelegate actionOngoing = null;
+            OnRevealDelegate skillSentinel = AbilityOnReveal.SkillSentinel;
+            OnGoingDelegate skillIronMan = AbilityOnGoing.SkillIronMan;
+            OnRevealDelegate skillMedusa = AbilityOnReveal.SkillMedusa;
+            OnRevealDelegate skillBlackPanther = AbilityOnReveal.SkillBlackPanther;
+            OnGoingDelegate skillDefault = AbilityOnGoing.SkillDefault;
 
 
             //     switch (skill) {
@@ -265,29 +303,33 @@ public class GameController
 
             switch (skill)
             {
-                // case CardSkill.IronMan:
-                    // action = skillIronMan;
-                    // break;
+                case CardSkill.IronMan:
+                    actionOngoing = skillIronMan;
+                    break;
                 case CardSkill.Sentinel:
-                    action = skillSentinel;
+                    actionOnReveal = skillSentinel;
                     break;
                 case CardSkill.Medusa:
-                    action = skillMedusa;
+                    actionOnReveal = skillMedusa;
                     break;
                 case CardSkill.BlackPanther:
-                    action = skillBlackPanther;
+                    actionOnReveal = skillBlackPanther;
                     break;
                 case CardSkill.Default:
-                    action = skillDefault;
+                    actionOngoing = skillDefault;
                     break;
                 default:
-                    action = skillDefault;
+                    actionOngoing = skillDefault;
                     break;
             }
 
-            if (!_skillCards.ContainsKey(skill))
+            if (!_skillOnReveal.ContainsKey(skill) && card.GetCardType() == CardType.OnReveal)
             {
-                _skillCards.Add(skill, action);
+                _skillOnReveal.Add(skill, actionOnReveal);
+            }
+            else if (!_skillOnGoing.ContainsKey(skill) && card.GetCardType() == CardType.OnGoing)
+            {
+                _skillOnGoing.Add(skill, actionOngoing);
             }
 
 
@@ -367,6 +409,36 @@ public class GameController
             LocationInfo info = new LocationInfo();
             info.InitLocPlayer(ListAllPlayer());
             _locationsInfo.Add(loc, info);
+            LocationSkill skill = loc.GetSkill();
+            LocationDelegate action;
+            LocationDelegate skillNidavellir = SkillLocation.SkillNidavellir;
+            LocationDelegate skillCloningVat = SkillLocation.SkillCloningVat;
+            LocationDelegate skillAtlantis = SkillLocation.SkillAtlantis;
+            LocationDelegate skillDefault = SkillLocation.SkillDefault;
+            
+            switch (skill)
+            {
+                case LocationSkill.Ruins :
+                    action = skillDefault;
+                    break;
+                case LocationSkill.Nidavellir :
+                    action = skillNidavellir;
+                    break;
+                case LocationSkill.CloningVat :
+                    action = skillCloningVat;
+                    break;
+                case LocationSkill.Atlantis :
+                    action = skillAtlantis;
+                    break;
+                default:
+                    action = skillDefault;
+                    break;
+            }
+
+            if (!_skillLocations.ContainsKey(skill))
+            {
+                _skillLocations.Add(skill, action);
+            }
         }
 
         return true;
@@ -420,9 +492,16 @@ public class GameController
 
     public bool ApplyOnGoingLocs()
     {
-        SkillLocation.OnGoingLocs(this);
+        // SkillLocation.OnGoingLocs(this);
+        // return true;
+        foreach (MarvelLocation loc in _randomLoc)
+        {
+            LocationDelegate action = _skillLocations[loc.GetSkill()];
+            loc.Action(action, this);
+        }
         return true;
     }
+
 
     public Dictionary<MarvelLocation, IPlayer> GetLocationWinner()
     {
@@ -585,9 +664,18 @@ public class GameController
         info.PopCardFromDeck(selectedCard);
         info.RemoveCard(selectedCard);
         info.SetEnergy(currentEnergy - selectedCard.GetCardCost());
-        selectedCard.Action(_skillCards[skill], this, player, selectedLoc);
+        if (selectedCard.GetCardType() == CardType.OnReveal)
+        {
+            selectedCard.Action(_skillOnReveal[skill], this, player, selectedLoc);
+        }
+        else if (selectedCard.GetCardType() == CardType.OnGoing)
+        {
+            selectedCard.Action(_skillOnGoing[skill], this);
+        }
         return true;
     }
+
+
 
     // public bool SetPlayerStatus(IPlayer player, PlayerStatus status)
     // {

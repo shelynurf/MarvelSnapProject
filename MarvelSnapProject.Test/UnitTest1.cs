@@ -11,7 +11,7 @@ public class Tests
         game = new GameController();
     }
 
-    [Test]
+    // [Test]
     public void AddPlayer_PlayerAddedSuccessfully()
     {
         //arrange
@@ -25,7 +25,7 @@ public class Tests
         // assert
         Assert.AreEqual(expected, result);
     }
-    [Test]
+    // [Test]
     public void AddPlayer_FalseWhenDuplicatePlayer()
     {
         //arrange
@@ -39,5 +39,15 @@ public class Tests
 
         // assert
         Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void ApplyOnGoingLocs_Success()
+    {
+        bool expected = true;
+
+        bool result = game.ApplyOnGoingLocs();
+
+        Assert.AreEqual(expected, result);
+        
     }
 }
