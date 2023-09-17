@@ -37,11 +37,11 @@ public partial class Program
 
     public static void DisplayCardLock(GameController game, MarvelLocation loc)
     {
-        Dictionary<IPlayer, List<ICard>> playersCard = game.GetLocationCards(loc);
+        Dictionary<IPlayer, List<MarvelCard>> playersCard = game.GetLocationCards(loc);
         foreach (var kvp in playersCard)
         {
             Console.Write($"({game.GetLocationScore(loc, kvp.Key)}) \t {kvp.Key.GetPlayerName()}'s Cards : ");
-            foreach (ICard card in kvp.Value)
+            foreach (MarvelCard card in kvp.Value)
             {
                 if (kvp.Value.IndexOf(card) != kvp.Value.Count - 1)
                 {

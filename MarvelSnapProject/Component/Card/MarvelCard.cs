@@ -2,8 +2,9 @@ using System.Runtime.Serialization;
 
 namespace MarvelSnapProject;
 
-public delegate bool OnRevealDelegate(GameController game, IPlayer player, MarvelLocation loc);
-public delegate bool OnGoingDelegate(GameController game);
+// public delegate bool OnRevealDelegate(GameController game, IPlayer player, MarvelLocation loc);
+// public delegate bool OnGoingDelegate(GameController game);
+public delegate bool ActionDelegate(GameController game, IPlayer player, MarvelLocation loc);
 [DataContract]
 public class MarvelCard : ICard
 {
@@ -13,8 +14,9 @@ public class MarvelCard : ICard
     [DataMember] private CardType _cardType;
     [DataMember] private CardSkill _cardSkill;
     [DataMember] private string _cardDescription = "";
-    private OnRevealDelegate _onRevealAction; 
-    private OnGoingDelegate _onGoingAction;
+    // private OnRevealDelegate _onRevealAction; 
+    // private OnGoingDelegate _onGoingAction;
+    private ActionDelegate _action;
     private bool _isAffected = false;
 
 
@@ -84,16 +86,22 @@ public class MarvelCard : ICard
         return copy;
     }
 
-    public bool Action(OnRevealDelegate action, GameController game, IPlayer player, MarvelLocation loc)
+    // public bool Action(OnRevealDelegate action, GameController game, IPlayer player, MarvelLocation loc)
+    // {
+    //     _onRevealAction = action;
+    //     _onRevealAction.Invoke(game, player, loc);
+    //     return true;
+    // }
+    public bool Action(ActionDelegate action, GameController game, IPlayer player, MarvelLocation loc)
     {
-        _onRevealAction = action;
-        _onRevealAction.Invoke(game, player, loc);
+        _action = action;
+        _action.Invoke(game, player, loc);
         return true;
     }
-    public bool Action(OnGoingDelegate action, GameController game)
-    {
-        _onGoingAction = action;
-        _onGoingAction.Invoke(game);
-        return true;
-    }
+    // public bool Action(OnGoingDelegate action, GameController game)
+    // {
+    //     _onGoingAction = action;
+    //     _onGoingAction.Invoke(game);
+    //     return true;
+    // }
 }

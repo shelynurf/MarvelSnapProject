@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "4LKwR5aU4up0gxZfKAjiqVBsAWPHBKtiOuJhq9O04c4KeEA8xyHKd6kXQ3OnFnJCkw28kDCDWiP/NeFUT1vvnw==",
+  "dgSpecHash": "WY+RMPjz/5dTULCg3/fYrxUVPZDqRQf8iqGisP3O5r7flQQxChtVSVPeLl3a5wNcJZsukb5RqMK558VTl7/0mQ==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Batch 4\\Documents\\Bootcamp Batch 4\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject\\MarvelSnapProject.csproj",
+  "projectFilePath": "D:\\Bootcamp FMLX\\MarvelSnap\\MarvelSnapProject\\MarvelSnapProject.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Batch 4\\.nuget\\packages\\nlog\\5.2.4\\nlog.5.2.4.nupkg.sha512"
+    "C:\\Users\\LOENA\\.nuget\\packages\\nlog\\5.2.4\\nlog.5.2.4.nupkg.sha512"
   ],
   "logs": []
 }

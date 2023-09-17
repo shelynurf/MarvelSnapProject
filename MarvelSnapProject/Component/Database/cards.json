@@ -34,7 +34,7 @@
    },
    {
       "_cardCost": 5,
-      "_cardDescription": "Default",
+      "_cardDescription": "Ongoing: Your total Power is doubled at this location.",
       "_cardName": "Iron Man",
       "_cardPower": 0,
       "_cardSkill": 1,
@@ -82,7 +82,7 @@
    },
    {
       "_cardCost": 1,
-      "_cardDescription": "Default",
+      "_cardDescription": "Ongoing: If you have 3 other cards here, +3 Power.",
       "_cardName": "Ant Man",
       "_cardPower": 1,
       "_cardSkill": 4,

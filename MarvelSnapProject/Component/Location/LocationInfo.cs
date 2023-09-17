@@ -3,7 +3,7 @@ using MarvelSnapProject;
 public class LocationInfo
 {
     private Dictionary<IPlayer, int> _scoreLoc = new Dictionary<IPlayer, int>();
-    private Dictionary<IPlayer, List<ICard>> _cardsLoc = new Dictionary<IPlayer, List<ICard>>();
+    private Dictionary<IPlayer, List<MarvelCard>> _cardsLoc = new Dictionary<IPlayer, List<MarvelCard>>();
     // private List<IPlayer> _winner = new();
     private Dictionary<IPlayer, PlayerInfo> _playerLocInfo = new();
 
@@ -12,19 +12,25 @@ public class LocationInfo
         foreach (IPlayer player in players)
         {
             _scoreLoc.Add(player, 0);
-            _cardsLoc.Add(player, new List<ICard>());
+            _cardsLoc.Add(player, new List<MarvelCard>());
         }
         return true;
     }
 
-    public Dictionary<IPlayer, List<ICard>> GetCardsOnLoc()
+    public Dictionary<IPlayer, List<MarvelCard>> GetCardsOnLoc()
     {
         return _cardsLoc;
     }
 
-    public List<ICard> GetCardsOnLoc(IPlayer player)
+    public List<MarvelCard> GetCardsOnLoc(IPlayer player)
     {
         return _cardsLoc[player];
+    }
+
+    public bool SetCardsOnLoc(IPlayer player, MarvelCard card)
+    {
+        _cardsLoc[player].Add(card);
+        return true;
     }
 
     public Dictionary<IPlayer, int> GetLocScore()
@@ -50,7 +56,7 @@ public class LocationInfo
         return true;
     }
 
-    public bool PlaceCard(IPlayer player, ICard card)
+    public bool PlaceCard(IPlayer player, MarvelCard card)
     {
         _cardsLoc[player].Add(card);
         CalculateScore(player, card);

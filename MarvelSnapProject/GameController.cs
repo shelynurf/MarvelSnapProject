@@ -13,7 +13,7 @@ public class GameController
     private Dictionary<IPlayer, PlayerInfo> _playersInfo = new();
     private Dictionary<MarvelLocation, LocationInfo> _locationsInfo = new();
     private List<ILocation> _locations = new();
-    private List<ICard> _cards = new();
+    private List<MarvelCard> _cards = new();
     // private bool _endTurn = false;
     private GameStatus _gameStatus = GameStatus.NotStarted;
     private MarvelSerialized _marvelSer = new MarvelSerialized();
@@ -21,8 +21,9 @@ public class GameController
     private List<MarvelLocation> _allLocations = new();
     private Random _random = new Random();
     private List<MarvelLocation> _randomLoc = new();
-    private Dictionary<CardSkill, OnRevealDelegate> _skillOnReveal = new();
-    private Dictionary<CardSkill, OnGoingDelegate> _skillOnGoing = new();
+    // private Dictionary<CardSkill, OnRevealDelegate> _skillOnReveal = new();
+    // private Dictionary<CardSkill, OnGoingDelegate> _skillOnGoing = new();
+    private Dictionary<CardSkill, ActionDelegate> _skill = new();
     private Dictionary<LocationSkill, LocationDelegate> _skillLocations = new();
 
     private string _winner;
@@ -144,11 +145,6 @@ public class GameController
         return _round;
     }
 
-    // public List<int> GetRounds()
-    // {
-    //     return _rounds;
-    // }
-
     /// <summary>
     /// Get status of the remaining game, are it not started, ongoing, or finished.
     /// </summary>
@@ -192,17 +188,34 @@ public class GameController
         return true;
     }
 
+
+    /// <summary>
+    /// Return List all card inside card database
+    /// </summary>
+    /// <returns></returns>
     public List<MarvelCard> GetAllCards()
     {
         _allCards = _marvelSer.ImportCards();
         return _allCards;
     }
 
+    /// <summary>
+    /// Return List all location inside Location database
+    /// </summary>
+    /// <returns></returns>
+
     public List<MarvelLocation> GetAllLocations()
     {
         _allLocations = _marvelSer.ImportLocations();
         return _allLocations;
     }
+
+    /// <summary>
+    /// Set 12 card to registered as player's deck.
+    /// </summary>
+    /// <param name="player">Player who wants to set the deck</param>
+    /// <param name="listCardIndex">Card index (based on card database) that wanna be registered as player deck</param>
+    /// <returns>Return true if success</returns>
 
     public bool SetPlayerDeck(IPlayer player, List<int> listCardIndex)
     {
@@ -218,7 +231,7 @@ public class GameController
         //     }
         // }
         // foreach(int index in randomList){
-        //     ICard card = _allCards[index].Copy();
+        //     MarvelCard card = _allCards[index].Copy();
         //     info.AddCardToDeck(card);
         // }
         // return true;
@@ -241,13 +254,19 @@ public class GameController
         return true;
     }
 
+    /// <summary>
+    /// Return List of card inside player's deck
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+
     public List<MarvelCard> GetPlayerDeck(IPlayer player)
     {
         return _playersInfo[player].GetDeck();
     }
 
     /// <summary>
-    /// Generate cards in hand of each round
+    /// Generate cards in hand of each round to player
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
@@ -280,16 +299,42 @@ public class GameController
         foreach (int ind in listIndex)
         {
             MarvelCard card = deck[ind].Copy();
-            info.AddCard(card);
+            if (!GetPlayerCards(player).Contains(card))
+            {
+                List<MarvelCard> placedCards = new();
+                foreach (var loc in _randomLoc)
+                {
+                    placedCards.AddRange(GetLocationCards(loc, player));
+                }
+                if (!placedCards.Contains(card))
+                {
+                    info.AddCard(card);
+                }
+                else
+                {
+                    GenerateCard(player);
+                }
+            }
+            // info.AddCard(card);
             CardSkill skill = card.GetCardSkill();
-            // OnRevealDelegate skilIronMan = SkillCards.SkillIronMan;\
-            OnRevealDelegate actionOnReveal = null;
-            OnGoingDelegate actionOngoing = null;
-            OnRevealDelegate skillSentinel = AbilityOnReveal.SkillSentinel;
-            OnGoingDelegate skillIronMan = AbilityOnGoing.SkillIronMan;
-            OnRevealDelegate skillMedusa = AbilityOnReveal.SkillMedusa;
-            OnRevealDelegate skillBlackPanther = AbilityOnReveal.SkillBlackPanther;
-            OnGoingDelegate skillDefault = AbilityOnGoing.SkillDefault;
+
+            // OnRevealDelegate skilIronMan = SkillCards.SkillIronMan;
+            // OnRevealDelegate actionOnReveal = null;
+            // OnGoingDelegate actionOngoing = null;
+            // OnRevealDelegate skillSentinel = AbilityOnReveal.SkillSentinel;
+            // OnGoingDelegate skillIronMan = AbilityOnGoing.SkillIronMan;
+            // OnRevealDelegate skillMedusa = AbilityOnReveal.SkillMedusa;
+            // OnRevealDelegate skillBlackPanther = AbilityOnReveal.SkillBlackPanther;
+            // OnGoingDelegate skillDefault = AbilityOnGoing.SkillDefault;
+
+   
+            ActionDelegate action = null;
+            ActionDelegate skillSentinel = SkillCards.SkillSentinel;
+            ActionDelegate skillIronMan = SkillCards.SkillIronMan;
+            ActionDelegate skillMedusa = SkillCards.SkillMedusa;
+            ActionDelegate skillBlackPanther = SkillCards.SkillBlackPanther;
+            ActionDelegate skillAntMan = SkillCards.SkillAntMan;
+            ActionDelegate skillDefault = SkillCards.SkillDefault;
 
 
             //     switch (skill) {
@@ -301,35 +346,64 @@ public class GameController
             //         break;
             // }
 
+            // switch (skill)
+            // {
+            //     case CardSkill.IronMan:
+            //         actionOngoing = skillIronMan;
+            //         break;
+            //     case CardSkill.Sentinel:
+            //         actionOnReveal = skillSentinel;
+            //         break;
+            //     case CardSkill.Medusa:
+            //         actionOnReveal = skillMedusa;
+            //         break;
+            //     case CardSkill.BlackPanther:
+            //         actionOnReveal = skillBlackPanther;
+            //         break;
+            //     case CardSkill.Default:
+            //         actionOngoing = skillDefault;
+            //         break;
+            //     default:
+            //         actionOngoing = skillDefault;
+            //         break;
+            // }
+
             switch (skill)
             {
                 case CardSkill.IronMan:
-                    actionOngoing = skillIronMan;
+                    action = skillIronMan;
                     break;
                 case CardSkill.Sentinel:
-                    actionOnReveal = skillSentinel;
+                    action = skillSentinel;
                     break;
                 case CardSkill.Medusa:
-                    actionOnReveal = skillMedusa;
+                    action = skillMedusa;
                     break;
                 case CardSkill.BlackPanther:
-                    actionOnReveal = skillBlackPanther;
+                    action = skillBlackPanther;
+                    break;
+                case CardSkill.AntMan:
+                    action = skillAntMan;
                     break;
                 case CardSkill.Default:
-                    actionOngoing = skillDefault;
+                    action = skillDefault;
                     break;
                 default:
-                    actionOngoing = skillDefault;
+                    action = skillDefault;
                     break;
             }
 
-            if (!_skillOnReveal.ContainsKey(skill) && card.GetCardType() == CardType.OnReveal)
+            // if (!_skillOnReveal.ContainsKey(skill) && card.GetCardType() == CardType.OnReveal)
+            // {
+            //     _skillOnReveal.Add(skill, actionOnReveal);
+            // }
+            // else if (!_skillOnGoing.ContainsKey(skill) && card.GetCardType() == CardType.OnGoing)
+            // {
+            //     _skillOnGoing.Add(skill, actionOngoing);
+            // }
+            if (!_skill.ContainsKey(skill))
             {
-                _skillOnReveal.Add(skill, actionOnReveal);
-            }
-            else if (!_skillOnGoing.ContainsKey(skill) && card.GetCardType() == CardType.OnGoing)
-            {
-                _skillOnGoing.Add(skill, actionOngoing);
+                _skill.Add(skill, action);
             }
 
 
@@ -361,12 +435,24 @@ public class GameController
         // return true;
     }
 
+    /// <summary>
+    /// Generate specific card to player
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="card"></param>
+    /// <returns></returns>
     public bool GenerateCard(IPlayer player, MarvelCard card)
     {
         PlayerInfo info = _playersInfo[player];
         info.AddCard(card);
         return true;
     }
+
+    /// <summary>
+    /// Return list of card in player's hand
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
 
     public List<MarvelCard> GetPlayerCards(IPlayer player)
     {
@@ -409,62 +495,89 @@ public class GameController
             LocationInfo info = new LocationInfo();
             info.InitLocPlayer(ListAllPlayer());
             _locationsInfo.Add(loc, info);
-            LocationSkill skill = loc.GetSkill();
-            LocationDelegate action;
-            LocationDelegate skillNidavellir = SkillLocation.SkillNidavellir;
-            LocationDelegate skillCloningVat = SkillLocation.SkillCloningVat;
-            LocationDelegate skillAtlantis = SkillLocation.SkillAtlantis;
-            LocationDelegate skillDefault = SkillLocation.SkillDefault;
-            
-            switch (skill)
-            {
-                case LocationSkill.Ruins :
-                    action = skillDefault;
-                    break;
-                case LocationSkill.Nidavellir :
-                    action = skillNidavellir;
-                    break;
-                case LocationSkill.CloningVat :
-                    action = skillCloningVat;
-                    break;
-                case LocationSkill.Atlantis :
-                    action = skillAtlantis;
-                    break;
-                default:
-                    action = skillDefault;
-                    break;
-            }
 
-            if (!_skillLocations.ContainsKey(skill))
-            {
-                _skillLocations.Add(skill, action);
-            }
+            // LocationSkill skill = loc.GetSkill();
+            // LocationDelegate action;
+            // LocationDelegate skillNidavellir = SkillLocation.SkillNidavellir;
+            // LocationDelegate skillCloningVat = SkillLocation.SkillCloningVat;
+            // LocationDelegate skillAtlantis = SkillLocation.SkillAtlantis;
+            // LocationDelegate skillDefault = SkillLocation.SkillDefault;
+            
+            // switch (skill)
+            // {
+            //     case LocationSkill.Ruins :
+            //         action = skillDefault;
+            //         break;
+            //     case LocationSkill.Nidavellir :
+            //         action = skillNidavellir;
+            //         break;
+            //     case LocationSkill.CloningVat :
+            //         action = skillCloningVat;
+            //         break;
+            //     case LocationSkill.Atlantis :
+            //         action = skillAtlantis;
+            //         break;
+            //     default:
+            //         action = skillDefault;
+            //         break;
+            // }
+
+            // if (!_skillLocations.ContainsKey(skill))
+            // {
+            //     _skillLocations.Add(skill, action);
+            // }
         }
 
         return true;
     }
 
+    /// <summary>
+    /// Return list of 3 location that has been generate
+    /// </summary>
+    /// <returns></returns>
     public List<MarvelLocation> GetLocations()
     {
         return _randomLoc;
     }
+
+    /// <summary>
+    /// Return each location and its location info
+    /// </summary>
+    /// <returns>Dictionary of MarvelLocation and LocationInfo</returns>
 
     public Dictionary<MarvelLocation, LocationInfo> GetLocationInfo()
     {
         return _locationsInfo;
     }
 
-    public Dictionary<IPlayer, List<ICard>> GetLocationCards(MarvelLocation loc)
+    /// <summary>
+    /// Return each player and his/her cards on location
+    /// </summary>
+    /// <param name="loc"></param>
+    /// <returns>Dictionary of Player and List Marvel Card</returns>
+    public Dictionary<IPlayer, List<MarvelCard>> GetLocationCards(MarvelLocation loc)
     {
         return _locationsInfo[loc].GetCardsOnLoc();
     }
 
-    public List<ICard> GetLocationCards(MarvelLocation loc, IPlayer player)
+    /// <summary>
+    /// Return List of card from specific player in specific location
+    /// </summary>
+    /// <param name="loc"></param>
+    /// <param name="player"></param>
+    /// <returns>List of MarvelCard</returns>
+    public List<MarvelCard> GetLocationCards(MarvelLocation loc, IPlayer player)
     {
         return _locationsInfo[loc].GetCardsOnLoc(player);
     }
+    /// <summary>
+    /// Check the location of a player card
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="card"></param>
+    /// <returns>Marvel Location</returns>
 
-    public MarvelLocation CheckCardLocation(IPlayer player, ICard card)
+    public MarvelLocation CheckCardLocation(IPlayer player, MarvelCard card)
     {
         // MarvelLocation loc = null;
 
@@ -481,28 +594,63 @@ public class GameController
 
         return loc;
     }
+
+    /// <summary>
+    /// Return each player and his/her score on specific location
+    /// </summary>
+    /// <param name="loc"></param>
+    /// <returns>Dictionary of Player and integer score</returns>
     public Dictionary<IPlayer, int> GetLocationScore(MarvelLocation loc)
     {
         return _locationsInfo[loc].GetLocScore();
     }
+
+    /// <summary>
+    /// return integer of score from specific player in specific location
+    /// </summary>
+    /// <param name="loc"></param>
+    /// <param name="player"></param>
+    /// <returns></returns>
     public int GetLocationScore(MarvelLocation loc, IPlayer player)
     {
         return _locationsInfo[loc].GetLocScore(player);
     }
 
-    public bool ApplyOnGoingLocs()
+    /// <summary>
+    /// Set player score on location using specific value
+    /// </summary>
+    /// <param name="loc"></param>
+    /// <param name="player"></param>
+    /// <param name="newScore"></param>
+    /// <returns></returns>
+
+    public bool SetLocationScore(MarvelLocation loc, IPlayer player, int newScore)
     {
-        // SkillLocation.OnGoingLocs(this);
-        // return true;
-        foreach (MarvelLocation loc in _randomLoc)
-        {
-            LocationDelegate action = _skillLocations[loc.GetSkill()];
-            loc.Action(action, this);
-        }
+        _locationsInfo[loc].SetLocScore(player, newScore);
         return true;
     }
 
+    /// <summary>
+    /// Apply action skill of location along the game
+    /// </summary>
+    /// <returns></returns>
 
+    public bool ApplyOnGoingLocs()
+    {
+        SkillLocation.OnGoingLocs(this);
+        return true;
+        // foreach (MarvelLocation loc in _randomLoc)
+        // {
+        //     LocationDelegate action = _skillLocations[loc.GetSkill()];
+        //     loc.Action(action, this);
+        // }
+        // return true;
+    }
+
+    /// <summary>
+    /// Return each location an its winner
+    /// </summary>
+    /// <returns></returns>
     public Dictionary<MarvelLocation, IPlayer> GetLocationWinner()
     {
         Dictionary<MarvelLocation, IPlayer> locWinner = new();
@@ -515,11 +663,21 @@ public class GameController
         return locWinner;
     }
 
+    /// <summary>
+    /// Return winner of specific location
+    /// </summary>
+    /// <param name="loc"></param>
+    /// <returns></returns>
+
     public IPlayer GetLocationWinner(MarvelLocation loc)
     {
         return _locationsInfo[loc].GetLocWinner();
     }
 
+    /// <summary>
+    /// return total score on all location from each player
+    /// </summary>
+    /// <returns></returns>
     public Dictionary<IPlayer, int> GetTotalScore()
     {
         Dictionary<IPlayer, int> totalScore = new();
@@ -537,6 +695,11 @@ public class GameController
         return totalScore;
     }
 
+    /// <summary>
+    /// Sync data to get total win of each player
+    /// </summary>
+    /// <returns></returns>
+
     public bool SyncTotalWin()
     {
         foreach (var kvp in GetLocationWinner())
@@ -552,6 +715,11 @@ public class GameController
         return true;
     }
 
+    /// <summary>
+    /// return total win of each player
+    /// </summary>
+    /// <returns></returns>
+
     public Dictionary<IPlayer, int> GetTotalWin()
     {
         Dictionary<IPlayer, int> totalWinPlayers = new();
@@ -564,6 +732,11 @@ public class GameController
         }
         return totalWinPlayers;
     }
+
+    /// <summary>
+    /// return string of Winner name, or Draw
+    /// </summary>
+    /// <returns></returns>
 
     public string GetWinner()
     {
@@ -595,12 +768,10 @@ public class GameController
         return winner;
     }
 
-
-    // public bool SetLocationScore(MarvelLocation loc, IPlayer player, int score)
-    // {
-
-    //     return true;
-    // }
+    /// <summary>
+    /// Return List of location that has been opened on each round
+    /// </summary>
+    /// <returns></returns>
 
     public List<MarvelLocation> OpenedLocation()
     {
@@ -624,19 +795,32 @@ public class GameController
         return openedLoc;
     }
 
+
+    /// <summary>
+    /// return integer of current player energy
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+
     public int GetPlayerEnergy(IPlayer player)
     {
         return _playersInfo[player].GetEnergy();
     }
 
-    public List<ICard> GetPlayableCard(IPlayer player)
+    /// <summary>
+    /// return list card that valid to be place on each round
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+
+    public List<MarvelCard> GetPlayableCard(IPlayer player)
     {
-        List<ICard> playableCard = new();
+        List<MarvelCard> playableCard = new();
         PlayerInfo info = _playersInfo[player];
         List<MarvelCard> listCard = info.GetCards();
         int energy = info.GetEnergy();
 
-        foreach (ICard card in listCard)
+        foreach (MarvelCard card in listCard)
         {
             if (card.GetCardCost() <= energy)
             {
@@ -646,10 +830,25 @@ public class GameController
         return playableCard;
     }
 
+    /// <summary>
+    /// check if the card is valid to place or not
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="cardIndex"></param>
+    /// <returns>Return true if card is valid to place</returns>
+
     public bool IsCardValid(IPlayer player, int cardIndex)
     {
         return GetPlayableCard(player).Contains(GetPlayerCards(player)[cardIndex - 1]);
     }
+
+    /// <summary>
+    /// return true if card is successfully placed
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="cardIndex"></param>
+    /// <param name="locIndex"></param>
+    /// <returns></returns>
 
     public bool PlaceCard(IPlayer player, int cardIndex, int locIndex)
     {
@@ -664,61 +863,46 @@ public class GameController
         info.PopCardFromDeck(selectedCard);
         info.RemoveCard(selectedCard);
         info.SetEnergy(currentEnergy - selectedCard.GetCardCost());
-        if (selectedCard.GetCardType() == CardType.OnReveal)
+        // if (selectedCard.GetCardType() == CardType.OnReveal)
+        // {
+        //     selectedCard.Action(_skillOnReveal[skill], this, player, selectedLoc);
+        // }
+        // else if (selectedCard.GetCardType() == CardType.OnGoing)
+        // {
+        //     selectedCard.Action(_skillOnGoing[skill], this);
+        // }
+        selectedCard.Action(_skill[skill], this, player, selectedLoc);
+        ApplyOnGoingActionCard();
+        return true;
+    }
+
+    /// <summary>
+    /// Apply skill of OnGoing card on every round
+    /// </summary>
+    /// <returns></returns>
+    public bool ApplyOnGoingActionCard()
+    {
+        foreach (var loc in _randomLoc)
         {
-            selectedCard.Action(_skillOnReveal[skill], this, player, selectedLoc);
-        }
-        else if (selectedCard.GetCardType() == CardType.OnGoing)
-        {
-            selectedCard.Action(_skillOnGoing[skill], this);
+            foreach (var player in ListAllPlayer())
+            {
+                List<MarvelCard> onGoingCards = GetLocationCards(loc, player).FindAll(x => x.GetCardType() == CardType.OnGoing);
+                foreach (var card in onGoingCards)
+                {
+                    var skill = card.GetCardSkill();
+                    card.Action(_skill[skill], this, player, loc);
+                }
+            }
         }
         return true;
     }
 
-
-
-    // public bool SetPlayerStatus(IPlayer player, PlayerStatus status)
-    // {
-    //     return true;
-    // }
-    // public PlayerStatus GetPlayerStatus(IPlayer player){
-
-    // }
-    // public bool AddNewLocation(ILocation location)
-    // {
-    //     return true;
-    // }
-    // public IEnumerable<ILocation> ListAllLocation(){
-
-    // }
-    // public bool AddNewCard(ICard card)
-    // {
-    //     return true;
-    // }
-    // public bool RemoveCard(ICard card)
-    // {
-    //     return true;
-    // }
-    // public string GetCardInfo(ICard card){
-
-    // }
-    // public IEnumerable<string> ListAllCard(){
-
-    // }
-    // public bool AddNewCardToPlayer(IPlayer player, ICard card)
-    // {
-    //     return true;
-    // }
-    // public bool PopCardFromPlayer(IPlayer player, ICard card)
-    // {
-    //     return true;
-    // }
-
-    // public MarvelLocation ConvertIndexToLoc(int locIndex)
-    // {
-
-    // }
-
+    /// <summary>
+    /// check whether the location is full or not, maksimum card on location is 4 card
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="locIndex"></param>
+    /// <returns></returns>
     public bool IsCardFullInLocation(IPlayer player, int locIndex)
     {
         int maxCardOnLoc = 4;
@@ -738,32 +922,4 @@ public class GameController
         }
 
     }
-
-    // public IPlayer GetWinner(ILocation location)
-    // {
-
-    // }
-    // public List<ICard> ListAllCardFromPlayer(IPlayer player){
-
-    // }
-
-    // public bool AddPlayerDeck(IPlayer player, ICard card){
-    //     PlayerInfo playerInfo = new PlayerInfo();
-    //     playerInfo.AddCardToDeck(new MarvelCard(card));
-
-    //     return true;
-    // }
 };
-
-// public bool AddNewCardToLocation(ILocation location, IPlayer player, ICard card)
-// {
-//     return true;
-// }
-
-
-// public bool SetGameMode(GameMode gameMode)
-// {
-//     return true;
-// }
-
-
